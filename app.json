@@ -1,12 +1,34 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/calc/index",
+    "pages/price/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "木材利润计算",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#69ac76",
+    "backgroundColor": "#fafafa",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list":[
+      {
+        "pagePath": "pages/calc/index",
+        "text": "计算",
+        "iconPath": "icons/calc_nor.png",
+        "selectedIconPath": "icons/calc_sel.png"
+      },
+      {
+        "pagePath": "pages/price/index",
+        "text": "价格",
+        "iconPath": "icons/price_nor.png",
+        "selectedIconPath": "icons/price_sel.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }
