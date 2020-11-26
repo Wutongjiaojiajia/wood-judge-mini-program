@@ -1,1 +1,4 @@
 /* pages/calc/index.wxss */
+text{
+  color: var(--themeColor);
+}
