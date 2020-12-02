@@ -1,11 +1,11 @@
 import req from './req.js';
 
 export default {
-  // 例子
-  test:(data)=>req({
-    baseUrl:'test',
+  // 查询价格维护列表信息
+  queryPriceMaintainInfo:(data)=>req({
+    baseUrl:'wood',
     method:'get',
-    url:'test/test',
+    url:'priceMaintain/queryList',
     data:data
-  })
+  }),
 }

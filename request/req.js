@@ -1,5 +1,5 @@
 import env from './env.js';
-export default request=({
+let request=({
   baseUrl = "", //基础路径
   url = "", //接口路径
   method = "GET", //请求方法
@@ -30,3 +30,5 @@ export default request=({
     wx.request(config);
   })
 }
+
+export default request;

@@ -1,0 +1,77 @@
+<mp-toptips 
+  msg="{{errorMsg}}" 
+  type="error" 
+  show="{{errorMsg}}">
+</mp-toptips>
+<view class="weui-cells__title">木材规格</view>
+<view class="weui-cells weui-cells_after-title">
+  <!-- 厚度标准 -->
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__bd weui-cell__bd_in-select-after">
+      <view class="weui-label">厚度标准</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker
+        mode="selector"
+        range="{{standardList}}"
+        range-key="text"
+        value="{{standardIndex}}"
+        bindchange="changeStandardSelect">
+        <view 
+          class="weui-select weui-select_in-select-after">{{standardList[standardIndex].text}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <!-- 木材等级 -->
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__bd weui-cell__bd_in-select-after">
+      <view class="weui-label">木材等级</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker
+        mode="selector"
+        range="{{levelList}}"
+        range-key="text"
+        value="{{levelIndex}}"
+        bindchange="changeLevelSelect">
+        <view 
+          class="weui-select weui-select_in-select-after">{{levelList[levelIndex].text}}
+        </view>
+      </picker>
+    </view>
+  </view>
+</view>
+<mp-cells title="成本">
+  <!-- 木材成本 -->
+  <mp-cell
+    title="木材成本(元/m³)*"
+    ext-class="cellStyle longCell">
+    <input 
+      class="weui-input"
+      type="number"
+      placeholder="请输入木材成本"
+      model:value="{{woodCost}}"/>
+  </mp-cell>
+  <!-- 固定成本 -->
+  <mp-cell
+    title="固定成本(元/m³)*"
+    ext-class="cellStyle longCell">
+    <input 
+      class="weui-input"
+      type="number"
+      placeholder="请输入固定成本"
+      model:value="{{fixedCost}}"/>
+  </mp-cell>
+  <!-- 刨花 -->
+  <mp-cell
+    title="刨花(元/m³)*"
+    ext-class="cellStyle">
+    <input 
+      class="weui-input"
+      type="number"
+      placeholder="请输入刨花价钱"
+      model:value="{{shavingPrice}}"/>
+  </mp-cell>
+</mp-cells>
+
