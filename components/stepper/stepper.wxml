@@ -1,0 +1,25 @@
+<view class="stepper">
+  <!-- 减号 -->
+  <view 
+    class="button {{disabledStatus?'disabled':''}} {{minusFocusStatus?'focus':''}}" 
+    bindtap="bindMinus"
+    bindtouchstart="startTouchButton"
+    bindtouchend="endTouchButton"
+    bindlongpress="longpressButton"
+    data-type="minus">-
+  </view>
+  <!-- 数值 -->
+  <input 
+    type="number" 
+    bindchange="bindManual"
+    model:value="{{num}}"/>
+  <!-- 加号 -->
+  <view 
+    class="button {{plusFocusStatus?'focus':''}}" 
+    bindtap="bindPlus"
+    bindtouchstart="startTouchButton"
+    bindtouchend="endTouchButton"
+    bindlongpress="longpressButton"
+    data-type="plus">+
+  </view>
+</view>

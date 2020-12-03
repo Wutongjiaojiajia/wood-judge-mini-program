@@ -1,0 +1,31 @@
+.stepper {
+  display: flex;
+}
+.stepper .button {
+  background-color: #F2F3F5;
+  font-size: 40rpx;
+  padding: 0 20rpx;
+  color: #626263;
+}
+.stepper .button:nth-child(1) {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.stepper .button:nth-child(3) {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.stepper .disabled {
+  background-color: #F7F8FA;
+  color: #DFE0E3;
+}
+.stepper .focus {
+  background: #E8E8E8;
+}
+.stepper input {
+  width: 100rpx;
+  background-color: #F2F3F5;
+  height: 70rpx;
+  text-align: center;
+  margin: 0 10rpx;
+}

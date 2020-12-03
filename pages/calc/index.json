@@ -2,7 +2,8 @@
   "usingComponents": {
     "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",
     "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
-    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips"
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "stepper": "/components/stepper/stepper"
   },
   "navigationBarTitleText": "木材计算"
 }
