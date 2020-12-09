@@ -1,18 +1,19 @@
+@import '../../styles/iconfont.wxss';
 .stepper{
     display: flex;
     .button{
         background-color: #F2F3F5;
-        font-size: 40rpx;
         padding: 0 20rpx;
+        font-weight: bolder;
         color: #626263;
-        &:nth-child(1){
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
-        }
-        &:nth-child(3){
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-        }
+    }
+    .minusButton{
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .plusButton{
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
     }
     .disabled{
         background-color: #F7F8FA;
@@ -22,7 +23,7 @@
         background: #E8E8E8;
     }
     input{
-        width: 100rpx; 
+        width: 120rpx; 
         background-color: #F2F3F5;
         height: 70rpx;
         text-align: center;

@@ -1,17 +1,37 @@
+@font-face {
+  font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_2255754_efcpivi9qiq.eot?t=1607413465425');
+  /* IE9 */
+  src: url('//at.alicdn.com/t/font_2255754_efcpivi9qiq.eot?t=1607413465425#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAK8AAsAAAAABqQAAAJvAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqBCIESATYCJAMMCwgABCAFhG0HOhvcBciuMSYy1NWJREjSsrmhfKb7i764zcB46kg8/LfG/r6Z2UFEkmgkip5OMkl4aIREgpjgl/67l7BXc7lfBOF25m3YlUGVZWgv4ctctuQIlAFUBoVphWsDgPISawCOxXr9FDqcrWm+LHW1V2aqqvQ4rzfgcvotoEDmWZbLXIvGBkww0D0wiqxIAvCcgLcu4zGBbvM0jaPF9S3oUlirAvGaRB505UKKImQ7hVpzsIhPjc70nj6Aj/D78Z8TXSRNZm08vl8IYfpXySftiSufECbgeIOMDaAQN7WpM61CoLfqVrW1F1dFSHNF25ZQpGvqTv94iaisyl6wAmW6KbHLJfhNiCXIoMbmRa+Rg9Gxl0VvX+/b0N2nz73DdfIQ9tTozPAFPVS0VbaOCANNmwN+4N4fJzY5Yg6j4U4PmjdIvwd3AO25PA6Qf4QCwRe/5+DWnT0F/JzDUHuhv6Zz/+7gf4l7jhRdaplzUUWuyPRkUyMdCQhErxbLN+xvvGasd4LQmRMLSDrMIeu0QCq0DTR6bKLqtItu65aO9xihtIrShTWXhDDoHUm/b2SDPkmF9ovGuH9Ug9GKbicxcmGPpUh6DhV5TCH6x5gEshSOlXui6g2K9nNPZaUhY4dUnUTRNqxidolKUnNsqQ8ih1mgULLARXqO8lxipWRKARsxczVqmqLuTUYgC+hxSCEeRkLIdwwlAlJJ+NNZT+nzG0hkX86jWjpqvDuIUktmRzaD1YO0pCp7ddzLK7UDEQdjAhIUqYAWaR7J5SRU1c9LkQAzxCMSlVGmPUn0VRnra4oPKBR6sLbmSJGjqM+JF3uyM1CUvBEAAA==') format('woff2'), url('//at.alicdn.com/t/font_2255754_efcpivi9qiq.woff?t=1607413465425') format('woff'), url('//at.alicdn.com/t/font_2255754_efcpivi9qiq.ttf?t=1607413465425') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */ url('//at.alicdn.com/t/font_2255754_efcpivi9qiq.svg?t=1607413465425#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-jiahao:before {
+  content: "\e6c3";
+}
+.icon-jianhao:before {
+  content: "\e71e";
+}
 .stepper {
   display: flex;
 }
 .stepper .button {
   background-color: #F2F3F5;
-  font-size: 40rpx;
   padding: 0 20rpx;
+  font-weight: bolder;
   color: #626263;
 }
-.stepper .button:nth-child(1) {
+.stepper .minusButton {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.stepper .button:nth-child(3) {
+.stepper .plusButton {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
@@ -23,7 +43,7 @@
   background: #E8E8E8;
 }
 .stepper input {
-  width: 100rpx;
+  width: 120rpx;
   background-color: #F2F3F5;
   height: 70rpx;
   text-align: center;

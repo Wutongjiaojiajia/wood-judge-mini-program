@@ -33,8 +33,9 @@ Page({
     /** 厚度统计结束 */ 
 
     /** 质量统计开始 */
+    qualityStatisticsState:0, //0-条数统计 1-百分比统计
     qualityStatistics:[
-      {recordTitle:'A(条)',resultTitle:'A(%)',quality:'A',total:12,percent:'',percentDisplay:''},
+      {recordTitle:'A(条)',resultTitle:'A(%)',quality:'A',total:0,percent:'',percentDisplay:''},
       {recordTitle:'B(条)',resultTitle:'B(%)',quality:'B',total:0,percent:'',percentDisplay:''},
       {recordTitle:'C(条)',resultTitle:'C(%)',quality:'C',total:0,percent:'',percentDisplay:''},
     ],  //质量统计
@@ -86,7 +87,15 @@ Page({
     })
   },
 
-  //
+  // 质量统计值改变
+  qualityPieceValueChange(e){
+    let { detail,target } = e;
+    let { index } = target.dataset;
+    let evalTarget = `qualityStatistics[${index}].total`; 
+    this.setData({
+      [evalTarget]:detail
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

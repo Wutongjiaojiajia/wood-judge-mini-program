@@ -1,12 +1,13 @@
 <view class="stepper">
   <!-- 减号 -->
   <view 
-    class="button {{disabledStatus?'disabled':''}} {{minusFocusStatus?'focus':''}}" 
+    class="button minusButton {{disabledStatus?'disabled':''}} {{minusFocusStatus?'focus':''}}" 
     bindtap="bindMinus"
     bindtouchstart="startTouchButton"
     bindtouchend="endTouchButton"
     bindlongpress="longpressButton"
-    data-type="minus">-
+    data-type="minus">
+    <icon class="iconfont icon-jianhao"></icon>
   </view>
   <!-- 数值 -->
   <input 
@@ -15,11 +16,12 @@
     model:value="{{num}}"/>
   <!-- 加号 -->
   <view 
-    class="button {{plusFocusStatus?'focus':''}}" 
+    class="button plusButton {{plusFocusStatus?'focus':''}}" 
     bindtap="bindPlus"
     bindtouchstart="startTouchButton"
     bindtouchend="endTouchButton"
     bindlongpress="longpressButton"
-    data-type="plus">+
+    data-type="plus">
+    <icon class="iconfont icon-jiahao"></icon>
   </view>
 </view>

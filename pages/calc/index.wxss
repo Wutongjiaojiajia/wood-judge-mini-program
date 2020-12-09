@@ -1,5 +1,5 @@
-page{
-  background-color: #FAFAFA;
+page {
+  background: #FAFAFA;
 }
 .weui-cells .weui-cell_select .weui-cell__bd .weui-label {
   text-align: center;
@@ -9,4 +9,28 @@ page{
 }
 .longCell .weui-cell__hd {
   font-size: 28rpx;
+}
+.qualityStatisticsTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.qualityStatisticsTitle .icon-change {
+  margin-right: 32rpx;
+  font-size: 26rpx;
+  color: var(--weixinFontColor);
+  font-weight: bolder;
+}
+.commonQualityCell {
+  padding: 22rpx 32rpx;
+  display: flex;
+  align-items: center;
+}
+.commonQualityCell .cellTitle {
+  width: 250rpx;
+}
+.commonQualityCell .cellContent {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }

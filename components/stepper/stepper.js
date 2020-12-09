@@ -11,10 +11,10 @@ Component({
    */
   data: {
     num:0, // 输入框值默认是0
-    disabledStatus:true,
-    plusFocusStatus:false,
-    minusFocusStatus:false,
-    interval:null
+    disabledStatus:true,  //按钮禁用状态
+    plusFocusStatus:false,  //加号聚焦状态
+    minusFocusStatus:false, //减号聚焦状态
+    interval:null //间隔器
   },
   /**
    * 组件的方法列表
@@ -32,6 +32,7 @@ Component({
         num,
         disabledStatus
       })
+      this.valueChange();
     },
     // 点击加号
     bindPlus(){
@@ -42,10 +43,10 @@ Component({
         num,
         disabledStatus
       })
+      this.valueChange();
     },
     // 输入框事件
     bindManual(e){
-      let num = 0;
       let { value } = e.detail;
       if(!isNaN(value) && Number(value) >= 1){
         this.setData({
@@ -58,6 +59,7 @@ Component({
           disabledStatus:true
         })
       }
+      this.valueChange();
     },
     // 开始触摸
     startTouchButton(e){
@@ -86,6 +88,7 @@ Component({
         minusFocusStatus:false
       })
       clearInterval(this.data.interval);
+      this.triggerEvent
     },
     // 长按按钮
     longpressButton(e){
@@ -103,6 +106,7 @@ Component({
               disabledStatus,
               num
             })
+            this.valueChange();
           }, 200);
           break;
         case 'minus':
@@ -117,6 +121,7 @@ Component({
                   num,
                   disabledStatus:false
                 })
+                this.valueChange();
               }else{
                 this.setData({
                   minusFocusStatus:false,
@@ -127,6 +132,9 @@ Component({
           }
           break;
       }
+    },
+    valueChange(){
+      this.triggerEvent('valueChange',this.data.num);
     }
-  }
+  },
 })

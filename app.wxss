@@ -12,4 +12,5 @@ page{
   /* 统一页面字体大小 假设设计稿大小为375px */
   /* 1px=2rpx 14px=28rpx */
   font-size: 28rpx;
+  --weixinFontColor:rgba(0,0,0,0.5);
 }

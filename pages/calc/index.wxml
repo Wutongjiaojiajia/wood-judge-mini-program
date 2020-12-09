@@ -74,5 +74,22 @@
       model:value="{{shavingPrice}}"/>
   </mp-cell>
 </mp-cells>
-
-<stepper></stepper>
+<view class="qualityStatisticsTitle">
+  <view class="weui-cells__title">质量统计</view>
+  <icon class="iconfont icon-change"></icon>
+</view>
+<view class="weui-cells {{qualityStatisticsState===0?'qualityStepper':''}}">
+  <!-- 质量统计 -->
+  <view
+    wx:for="{{qualityStatistics}}"
+    wx:key="index"
+    class="weui-cell commonQualityCell">
+    <view class="cellTitle">{{item.recordTitle}}</view>
+    <view class="cellContent">
+      <stepper 
+        bindvalueChange="qualityPieceValueChange" 
+        data-index="{{index}}">
+      </stepper>
+    </view>
+  </view>
+</view>
