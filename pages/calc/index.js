@@ -148,6 +148,22 @@ Page({
     })
   },
   /** 厚度统计 */
+  //  切换厚度统计方式
+  changeTicknessStatisticsState(){
+    this.setData({
+      thicknessStatisticsState:this.data.thicknessStatisticsState === 0?1:0
+    })
+    this.data.thicknessStatistics.forEach((item,index)=>{
+      let total = `thicknessStatistics[${index}].total`;
+      let percent = `thicknessStatistics[${index}].percent`;
+      let percentDisplay = `thicknessStatistics[${index}].percentDisplay`;
+      this.setData({
+        [total]:0,
+        [percent]:'',
+        [percentDisplay]:''
+      })
+    })
+  },
   // 点击加号添加木材厚度统计行
   addWoodThicknessRow(){
     if(this.data.thicknessStatistics.length+1>this.data.thicknessList.length){
@@ -238,15 +254,44 @@ Page({
         break;
     }
   },
+  // 厚度统计条数改变
+  thicknessPieceValueChange(e){
+    let { detail,target } = e;
+    let { index } = target.dataset;
+    let evalTarget = `thicknessStatistics[${index}].total`; 
+    this.setData({
+      [evalTarget]:detail
+    })
+  },
+  // 厚度统计百分比改变
+  thicknessPercentChange(e){
+    let { detail,target } = e;
+    let { index } = target.dataset;
+    let { value } = detail;
+    let percent = '';
+    if(!isNaN(value) && Number(value)>=0){
+      percent = Number(value)/100;
+    }else{
+      value = "";
+    }
+    let evalTarget = `thicknessStatistics[${index}].percentDisplay`;
+    let calcTarget = `thicknessStatistics[${index}].percent`;
+    this.setData({
+      [evalTarget]:value, //显示的百分比
+      [calcTarget]:percent, //实际的百分比
+    })
+  },
   /** 质量统计 */
   // 切换条数或者百分比统计
   changeQualityStatisticsState(){
+    this.setData({
+      qualityStatisticsState:this.data.qualityStatisticsState === 0?1:0
+    })
     this.data.qualityStatistics.forEach((item,index)=>{
       let total = `qualityStatistics[${index}].total`;
       let percent = `qualityStatistics[${index}].percent`;
       let percentDisplay = `qualityStatistics[${index}].percentDisplay`;
       this.setData({
-        qualityStatisticsState:this.data.qualityStatisticsState === 0?1:0,
         [total]:0,
         [percent]:'',
         [percentDisplay]:''

@@ -27,6 +27,24 @@ page {
   margin-right: 32rpx;
   font-size: 28rpx;
 }
+.commonThicknessStatistics .weui-slideview .thicknessStatisticsCell {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  height: 112rpx;
+}
+.commonThicknessStatistics .weui-slideview .thicknessStatisticsCell .cellTitle {
+  width: 250rpx;
+}
+.commonThicknessStatistics .weui-slideview .thicknessStatisticsCell .cellTitle .weui-select {
+  padding: 0;
+}
+.commonThicknessStatistics .weui-slideview .thicknessStatisticsCell .cellContent {
+  padding-right: 40rpx;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
 .qualityStatisticsTitle {
   display: flex;
   align-items: center;
@@ -42,6 +60,7 @@ page {
   padding: 22rpx 32rpx;
   display: flex;
   align-items: center;
+  height: 112rpx;
 }
 .qualityStepper .commonQualityCell .cellTitle {
   width: 250rpx;

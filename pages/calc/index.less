@@ -39,6 +39,29 @@ page{
 		}
 	}
 }
+// 厚度统计-输入框&步进器
+.commonThicknessStatistics{
+	.weui-slideview{
+		.thicknessStatisticsCell{
+			display: flex;
+			align-items: center;
+			padding: 32rpx;
+			height: 112rpx;
+			.cellTitle{
+				width: 250rpx;
+				.weui-select{
+					padding: 0;
+				}
+			}
+			.cellContent{
+				padding-right: 40rpx;
+				display: flex;
+				flex: 1;
+				justify-content: center;
+			}
+		}
+	}
+}
 
 // 质量统计标题
 .qualityStatisticsTitle{
@@ -58,6 +81,7 @@ page{
 		padding: 22rpx 32rpx;
 		display: flex;
 		align-items: center;
+		height: 112rpx;
 		.cellTitle{
 			width: 250rpx; 
 		}

@@ -101,21 +101,25 @@
       bindtap="addWoodThicknessRow"
       class="iconfont icon-jiahao">
     </icon>
-    <icon class="iconfont icon-change"></icon>
+    <icon
+      bindtap="changeTicknessStatisticsState"
+      class="iconfont icon-change">
+    </icon>
   </view>
 </view>
-<!-- 厚度 百分比 统计 -->
+<!-- 厚度 条数 统计 -->
+<!-- thicknessStatisticsState 0-条数 1-百分比 -->
 <view
   wx:if="{{thicknessStatisticsState === 0}}"
-  class="weui-cells weui-cells_after-title">
+  class="weui-cells weui-cells_after-title thicknessStatisticsStepper commonThicknessStatistics">
   <mp-slideview
     wx:for="{{thicknessStatistics}}"
     wx:key="index"
     buttons="{{thicknessStatisticsSlideButtons}}"
     bindbuttontap="thicknessStatisticsSlideButtonTap"
     data-index="{{index}}">
-    <view class="weui-cell weui-cell_select">
-      <view class="weui-cell__hd" style="width:105px">
+    <view class="weui-cell weui-cell_select thicknessStatisticsCell">
+      <view class="weui-cell__hd cellTitle">
         <picker 
           range="{{thicknessList}}"
           range-key="text"
@@ -124,15 +128,46 @@
           <view class="weui-select">{{thicknessStatistics[index].resultTitle}}</view>
         </picker>
       </view>
-      <view class="weui-cell__bd weui-cell__bd_in-select-before">
-        <input class="weui-input" placeholder="请输入厚度占比" />
+      <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
+        <stepper
+        bindvalueChange="thicknessPieceValueChange" 
+        data-index="{{index}}">
+        </stepper>
       </view>
     </view>
   </mp-slideview>
 </view>
-<!-- 厚度 条数 统计 -->
+<!-- 厚度 百分比 统计 -->
+<!-- thicknessStatisticsState 0-条数 1-百分比 -->
 <view
-  wx:if="{{thicknessStatisticsState === 1}}">
+  wx:if="{{thicknessStatisticsState === 1}}"
+  class="weui-cells weui-cells_after-title thicknessStatisticsInput commonThicknessStatistics">
+  <mp-slideview
+    wx:for="{{thicknessStatistics}}"
+    wx:key="index"
+    buttons="{{thicknessStatisticsSlideButtons}}"
+    bindbuttontap="thicknessStatisticsSlideButtonTap"
+    data-index="{{index}}">
+    <view class="weui-cell weui-cell_select thicknessStatisticsCell">
+      <view class="weui-cell__hd cellTitle">
+        <picker 
+          range="{{thicknessList}}"
+          range-key="text"
+          bindchange="woodThicknessSelectChange"
+          data-index="{{index}}">
+          <view class="weui-select">{{thicknessStatistics[index].resultTitle}}</view>
+        </picker>
+      </view>
+      <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
+        <input 
+          bindinput="thicknessPercentChange"
+          class="weui-input" 
+          type="number"
+          data-index="{{index}}"
+          placeholder="请输入厚度占比" />
+      </view>
+    </view>
+  </mp-slideview>
 </view>
 <!-- 质量统计 -->
 <view class="qualityStatisticsTitle">
@@ -142,6 +177,7 @@
     bindtap="changeQualityStatisticsState"></icon>
 </view>
 <!-- 质量 条数 统计 -->
+<!-- qualityStatisticsState 0-百分比 1-条数 -->
 <view
   wx:if="{{qualityStatisticsState === 0}}"
   class="weui-cells qualityStepper">
@@ -159,6 +195,7 @@
   </view>
 </view>
 <!-- 质量 百分比 统计 -->
+<!-- qualityStatisticsState 0-百分比 1-条数 -->
 <view
   wx:if="{{qualityStatisticsState === 1}}"
   class="weui-cells qualityInput">
