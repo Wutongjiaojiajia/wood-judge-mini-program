@@ -21,6 +21,26 @@ page{
 	}
 }
 
+// 厚度统计标题
+.thicknessStatisticsTitle{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.operateArea{
+		margin-right: 32rpx;
+		.iconfont{
+			font-size: 26rpx;
+			color: var(--weixinFontColor);
+			font-weight: bolder;
+		}
+		.icon-jiahao{
+			margin-right: 32rpx;
+			font-size: 28rpx;
+		}
+	}
+}
+
+// 质量统计标题
 .qualityStatisticsTitle{
 	display: flex;
 	align-items: center;
@@ -32,17 +52,33 @@ page{
 		font-weight: bolder;
 	}
 }
-
-.commonQualityCell{
-	padding: 22rpx 32rpx;
-	display: flex;
-	align-items: center;
-	.cellTitle{
-		width: 250rpx; 
-	}
-	.cellContent{
+// 质量统计-步进器
+.qualityStepper{
+	.commonQualityCell{
+		padding: 22rpx 32rpx;
 		display: flex;
-		flex: 1;
-		justify-content: center;
+		align-items: center;
+		.cellTitle{
+			width: 250rpx; 
+		}
+		.cellContent{
+			display: flex;
+			flex: 1;
+			justify-content: center;
+		}
+	}
+}
+// 质量统计-输入框
+.qualityInput{
+	.commonQualityCell{
+		display: flex;
+		align-items: center;
+		.cellTitle{
+			width: 250rpx; 
+		}
+		.cellContent{
+			display: flex;
+			flex: 1;
+		}
 	}
 }

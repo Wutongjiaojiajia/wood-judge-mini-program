@@ -39,7 +39,7 @@
     "bundle": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.14.0",
+  "libVersion": "2.14.1",
   "appid": "wx92e007217f3bff1b",
   "projectname": "wood-judge-mini-program",
   "debugOptions": {

@@ -10,6 +10,23 @@ page {
 .longCell .weui-cell__hd {
   font-size: 28rpx;
 }
+.thicknessStatisticsTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.thicknessStatisticsTitle .operateArea {
+  margin-right: 32rpx;
+}
+.thicknessStatisticsTitle .operateArea .iconfont {
+  font-size: 26rpx;
+  color: var(--weixinFontColor);
+  font-weight: bolder;
+}
+.thicknessStatisticsTitle .operateArea .icon-jiahao {
+  margin-right: 32rpx;
+  font-size: 28rpx;
+}
 .qualityStatisticsTitle {
   display: flex;
   align-items: center;
@@ -21,16 +38,27 @@ page {
   color: var(--weixinFontColor);
   font-weight: bolder;
 }
-.commonQualityCell {
+.qualityStepper .commonQualityCell {
   padding: 22rpx 32rpx;
   display: flex;
   align-items: center;
 }
-.commonQualityCell .cellTitle {
+.qualityStepper .commonQualityCell .cellTitle {
   width: 250rpx;
 }
-.commonQualityCell .cellContent {
+.qualityStepper .commonQualityCell .cellContent {
   display: flex;
   flex: 1;
   justify-content: center;
+}
+.qualityInput .commonQualityCell {
+  display: flex;
+  align-items: center;
+}
+.qualityInput .commonQualityCell .cellTitle {
+  width: 250rpx;
+}
+.qualityInput .commonQualityCell .cellContent {
+  display: flex;
+  flex: 1;
 }

@@ -3,7 +3,9 @@
     "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",
     "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
-    "stepper": "/components/stepper/stepper"
+    "stepper": "/components/stepper/stepper",
+    "mp-slideview":"/miniprogram_npm/weui-miniprogram/slideview/slideview",
+    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog"
   },
   "navigationBarTitleText": "木材计算"
 }
