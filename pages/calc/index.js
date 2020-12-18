@@ -1,5 +1,6 @@
 // pages/calc/index.js
 import req from '../../request/index.js';
+import utils from '../../utils/util.js';
 Page({
   /**
    * 页面的初始数据
@@ -32,7 +33,7 @@ Page({
       {text:'AB(0.95)',value:0.95},
       {text:'C(0.92)',value:0.92}
     ],  // 木材等级列表
-    levelIndex:"0", // 木材等级选中下标
+    levelIndex:0, // 木材等级选中下标
     /** 木材规格结束 */
 
     /** 成本开始 */
@@ -67,6 +68,14 @@ Page({
       {recordTitle:'C（条）',resultTitle:'C（%）',quality:'C',total:0,percent:'',percentDisplay:''},
     ],  //质量统计
     /** 质量统计结束 */
+    /** 计算结果开始 */
+    percentOfOutput:"", //出材率
+    productCost:'', //每立方米木材成本
+    productPrice:'',  //每立方米木材出厂价
+    profit:'',  //利润
+    /** 计算结果结束 */
+    /** 板材价钱 */
+    panelPrice:[]
   },
   // 查询价格维护信息
   queryPriceMaintainInfo(){
@@ -94,7 +103,8 @@ Page({
         this.setData({
           originWoodList:originData,  //价格数据
           originThicknessList:thicknessList,  //完整厚度列表
-          thicknessList:thicknessList //厚度列表
+          thicknessList:thicknessList, //厚度列表
+          panelPrice:originData
         })
         this.changeWoodStandardValue();
       }else{
@@ -102,7 +112,8 @@ Page({
           originWoodList:[],  //价格数据
           originThicknessList:[], //完整厚度列表
           thicknessList:[], //厚度列表
-          errorMsg:'木材价格维护列表为空'
+          errorMsg:'木材价格维护列表为空',
+          panelPrice:[]
         })
       }
     }))
@@ -112,7 +123,8 @@ Page({
         originWoodList:[],  //价格数据
         originThicknessList:[], //完整厚度列表
         thicknessList:[], //厚度列表
-        errorMsg:'查询失败，请联系管理员'
+        errorMsg:'查询失败，请联系管理员',
+        panelPrice:[]
       })
     })
   },
@@ -138,13 +150,14 @@ Page({
   // 改变厚度标准下标值
   changeStandardSelect(e){
     this.setData({
-      standardIndex:e.detail.value
+      standardIndex:Number(e.detail.value)
     })
+    this.changeWoodStandardValue();
   },
   // 改变木材等级下标值
   changeLevelSelect(e){
     this.setData({
-      levelIndex:e.detail.value
+      levelIndex: Number(e.detail.value)
     })
   },
   /** 厚度统计 */
@@ -323,6 +336,249 @@ Page({
     this.setData({
       [evalTarget]:value, //显示的百分比
       [calcTarget]:percent, //实际的百分比
+    })
+  },
+  /** 计算 */
+  goToNextPage(){
+    let msg = "";
+    switch (true) {
+      case this.data.standardIndex === '':
+        msg = "请选择木材厚度标准";
+        break;
+      case this.data.levelIndex === '':
+        msg = "请选择木材等级";
+        break;
+      case this.data.woodCost === '':
+        msg = "请输入木材成本";
+        break;
+      case !utils.validateCorrectMoney(Number(this.data.woodCost)):
+        msg = "请输入正确的木材成本";
+        break;
+      case this.fixedCost === '':
+        msg = "请输入固定成本";
+        break;
+      case !utils.validateCorrectMoney(Number(this.data.fixedCost)):
+        msg = "请输入正确的固定成本";
+        break;
+      case this.data.shavingPrice === '':
+        msg = "请输入刨花价钱";
+        break;
+      case !utils.validateCorrectMoney(Number(this.data.shavingPrice)):
+        msg = "请输入正确的刨花价钱";
+        break;
+      case this.data.thicknessStatistics.length === 0:
+        msg = "木材厚度统计至少要有一条记录";
+        break;
+    }
+    if(msg !== ""){
+      this.setData({
+        errorMsg:msg
+      })
+      return;
+    }
+    switch (this.data.thicknessStatisticsState) {
+      // 数量统计
+      case 0:
+        let thicknessStatisticsTotal = 0;
+        this.data.thicknessStatistics.forEach(item => {
+          thicknessStatisticsTotal += item.total;
+        });
+        if(thicknessStatisticsTotal === 0){
+          msg = "请完善木材厚度统计信息";
+        }
+        break;
+      // 百分比统计
+      case 1:
+        let thicknessStatisticsPercentTotal = 0;
+        for (let i = 0; i < this.data.thicknessStatistics.length; i++) {
+          let item = this.data.thicknessStatistics[i];
+          if(item.percentDisplay === ""){
+            msg = "请完善木材厚度统计信息";
+            break;
+          }
+          thicknessStatisticsPercentTotal += Number(item.percentDisplay);
+          if(i === this.data.thicknessStatistics.length - 1){
+            if(thicknessStatisticsPercentTotal !== 100){
+              msg = "木材厚度百分比相加不为100";
+            }
+          }
+        }
+        break;
+    }
+    if(msg !== ""){
+      this.setData({
+        errorMsg:msg
+      })
+      return;
+    }
+    // 质量统计
+    switch (this.data.qualityStatisticsState) {
+      // 数量统计
+      case 0:
+        let qualityStatisticsTotal = 0;
+        this.data.qualityStatistics.forEach((item) => {
+          qualityStatisticsTotal += item.total;
+        });
+        if(qualityStatisticsTotal === 0){
+          msg = "请完善木材质量统计信息";
+        }
+        break;
+      // 百分比统计
+      case 1:
+        let qualityStatisticsPercentTotal = 0;
+        for (let i = 0; i < this.data.qualityStatistics.length; i++) {
+          let item = this.data.qualityStatistics[i];
+          if(item.percentDisplay === ""){
+            msg = "请完善木材质量统计信息";
+            break;
+          }
+          qualityStatisticsPercentTotal += Number(item.percentDisplay);
+          if(i === this.data.qualityStatistics.length - 1){
+            if(qualityStatisticsPercentTotal !== 100){
+              msg = "木材ABC质量百分比相加不为100";
+            }
+          }
+        }
+        break;
+    }
+    if(msg !== ""){
+      this.setData({
+        errorMsg:msg
+      })
+      return;
+    }
+    switch (this.data.thicknessStatisticsState) {
+      case 0:
+        this.calculatePercentOfThicknessOrQuality(0);  //计算厚度各占百分比
+        break;
+      case 1:
+        this.exchangePercentOfThicknessOrQuality(0); //切换小数位
+        break;
+    }
+    switch (this.data.qualityStatisticsState) {
+      case 0:
+        this.calculatePercentOfThicknessOrQuality(1); //计算ABC各占百分比
+        break;
+      case 1:
+        this.exchangePercentOfThicknessOrQuality(1);  //切换小数位
+        break;
+    }
+    this.calculatePercentOfOutput();  //计算出材率
+    this.calculateProductCost();  //计算成本
+    this.calculateProductPrice(); //计算出厂价
+    this.calculateProfit(); //计算利润
+  },
+  /** 计算结果 */
+  // 计算厚度或质量百分比
+  calculatePercentOfThicknessOrQuality(arr){
+    // type 0-厚度 1-质量
+    let statisticsTotal = 0;
+    switch (type) {
+      case 0:
+        this.data.thicknessStatistics.forEach((item)=>{
+          statisticsTotal += Number(item.total);
+        })
+        this.data.thicknessStatistics.forEach((item,index)=>{
+          let total = Number(item.total);
+          let percent = `thicknessStatistics[${index}].percent`;
+          let percentDisplay = `thicknessStatistics[${index}].percentDisplay`;
+          this.setData({
+            [percent]: (total / statisticsTotal).toFixed(4),
+            [percentDisplay]: ((total / statisticsTotal)*100).toFixed(2)
+          })
+        })
+        break;
+      case 1:
+        this.data.qualityStatistics.forEach((item)=>{
+          statisticsTotal += Number(item.total);
+        })
+        this.data.qualityStatistics.forEach((item,index)=>{
+          let total = Number(item.total);
+          let percent = `qualityStatistics[${index}].percent`;
+          let percentDisplay = `qualityStatistics[${index}].percentDisplay`;
+          this.setData({
+            [percent]: (total / statisticsTotal).toFixed(4),
+            [percentDisplay]: ((total / statisticsTotal)*100).toFixed(2)
+          })
+        })
+        break;
+    }
+  },
+  // 切换厚度或质量百分比
+  exchangePercentOfThicknessOrQuality(type){
+    // type 0-厚度 1-质量
+    switch (type) {
+      case 0:
+        this.data.thicknessStatistics.forEach((item,index)=>{
+          let percent = `thicknessStatistics[${index}].percent`;
+          let percentDisplay = `thicknessStatistics[${index}].percentDisplay`;
+          this.setData({
+            [percent]:Number(item.percent).toFixed(4),
+            [percentDisplay]:Number(item.percentDisplay).toFixed(2)
+          })
+        })
+        break;
+      case 1:
+        this.data.qualityStatistics.forEach((item,index)=>{
+          let percent = `qualityStatistics[${index}].percent`;
+          let percentDisplay = `qualityStatistics[${index}].percentDisplay`;
+          this.setData({
+            [percent]:Number(item.percent).toFixed(4),
+            [percentDisplay]:Number(item.percentDisplay).toFixed(2)
+          })
+        })
+        break;
+    }
+  },
+  // 计算出材率
+  calculatePercentOfOutput(){
+    let averageThickness = 0;
+    this.data.thicknessStatistics.forEach(item => {
+      let thickness = Number(item.thickness) * Number(item.percent);
+      averageThickness += thickness;
+    });
+    let standardValue = this.data.standardList[this.data.standardIndex].value;
+    let levelValue = this.data.levelList[this.data.levelIndex].value;
+    let percentOfOutput = ((averageThickness / (25.4 * standardValue)) * levelValue).toFixed(4);
+    this.setData({
+      percentOfOutput
+    })
+  },
+  // 计算成本
+  calculateProductCost(){
+    let woodCost = Number(this.data.woodCost);
+    let percentOfOutput = Number(this.data.percentOfOutput);
+    let fixedCost = Number(this.data.fixedCost);
+    let productCost = ((woodCost / percentOfOutput) + fixedCost).toFixed(2);
+    this.setData({
+      productCost
+    })
+  },
+  // 计算出厂价
+  calculateProductPrice(){
+    let thicknessPerPrice = {};
+    this.data.thicknessStatistics.forEach((item) => {
+      let panel = this.data.panelPrice.filter(pItem=>pItem.thickness === item.thickness);
+      let perPanelPrice = panel[0];
+      let APrice = Number(perPanelPrice.A) * Number(this.qualityStatistics[0].percent);
+      let BPrice = Number(perPanelPrice.B) * Number(this.qualityStatistics[1].percent);
+      let CPrice = Number(perPanelPrice.C) * Number(this.qualityStatistics[2].percent);
+      thicknessPerPrice[item.thickness] = APrice + BPrice + CPrice;
+    });
+    let totalPrice = 0;
+    for(let key in thicknessPerPrice){
+      totalPrice += Number(thicknessPerPrice[key]);
+    }
+    let productPrice = (totalPrice + Number(this.shavingPrice)).toFixed(2);
+    this.setData({
+      productPrice
+    })
+  },
+  // 计算利润
+  calculateProfit(){
+    let profit = (Number(this.productPrice) - Number(this.productCost)).toFixed(2);
+    this.setData({
+      profit
     })
   },
   /**

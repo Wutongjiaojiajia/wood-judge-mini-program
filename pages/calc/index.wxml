@@ -214,3 +214,10 @@
     </view>
   </view>
 </view>
+
+<button
+  bindtap="goToNextPage"
+  style="background-color:#78aa7b"
+  type="primary"
+  class="calcButton">计算
+</button>

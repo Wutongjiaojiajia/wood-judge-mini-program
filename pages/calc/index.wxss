@@ -81,3 +81,7 @@ page {
   display: flex;
   flex: 1;
 }
+.calcButton {
+  margin: 40rpx 0;
+  margin-bottom: 20rpx;
+}
