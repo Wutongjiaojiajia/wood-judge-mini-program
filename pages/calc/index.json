@@ -5,7 +5,9 @@
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
     "stepper": "/components/stepper/stepper",
     "mp-slideview":"/miniprogram_npm/weui-miniprogram/slideview/slideview",
-    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog"
+    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "cu-custom":"/components/cu-custom/cu-custom"
   },
-  "navigationBarTitleText": "木材计算"
+  "navigationBarTitleText": "木材计算",
+  "navigationStyle":"custom"
 }

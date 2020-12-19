@@ -22,6 +22,9 @@
   buttons="{{confirmDialogButton}}">
   <view>{{confirmDialogContent}}</view>
 </mp-dialog>
+<cu-custom>
+  <view slot="content">木材计算</view>
+</cu-custom>
 <view class="weui-cells__title">木材规格</view>
 <view class="weui-cells weui-cells_after-title">
   <!-- 厚度标准 -->

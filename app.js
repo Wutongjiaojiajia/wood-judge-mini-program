@@ -1,10 +1,21 @@
 App({
-
+  globalData:{
+    StatusBar:'', 
+    Custom:'',
+    CustomBar:''
+  },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
-    
+    wx.getSystemInfo({
+      success:e=>{
+        this.globalData.StatusBar = e.statusBarHeight;
+        let custom = wx.getMenuButtonBoundingClientRect();
+        this.globalData.Custom = custom;
+        this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+      }
+    })
   },
 
   /**

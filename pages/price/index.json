@@ -1,8 +1,10 @@
 {
   "usingComponents": {
     "mp-slideview":"/miniprogram_npm/weui-miniprogram/slideview/slideview",
-    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog"
+    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "cu-custom":"/components/cu-custom/cu-custom"
   },
   "navigationBarTitleText": "板价维护",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationStyle":"custom"
 }

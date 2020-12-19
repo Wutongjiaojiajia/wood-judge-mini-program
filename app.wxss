@@ -1,4 +1,5 @@
 @import "./styles/iconfont.wxss";
+@import "./styles/main.wxss";
 
 /* 小程序中不支持通配符 */
 page,view,text,swiper,swiper-item,image,navigator{

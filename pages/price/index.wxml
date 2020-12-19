@@ -13,6 +13,13 @@
   buttons="{{confirmDialogButton}}">
   <view>{{confirmDialogContent}}</view>
 </mp-dialog>
+<cu-custom
+  isBack="{{true}}">
+  <view slot="content">板价维护</view>
+  <view slot="backText">
+    <icon class="iconfont icon-jiahao"></icon>
+  </view>
+</cu-custom>
 <view class="m-priceMaintain-grid">
   <view class="m-grid-head">
     <p>厚度</p>
