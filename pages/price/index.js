@@ -114,13 +114,16 @@ Page({
           this.setData({
             topTipsMsg:msg,
             topTipsType:'success',
-            topTipsShow:true
+            topTipsShow:true,
+            selectRowData:null
           })
+          this.refreshList();
         } catch (error) {
           this.setData({
             topTipsMsg:msg,
             topTipsType:'error',
-            topTipsShow:true
+            topTipsShow:true,
+            selectRowData:null
           })
         }
         break;
