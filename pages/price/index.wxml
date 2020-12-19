@@ -1,2 +1,42 @@
-<!--pages/price/index.wxml-->
-<text>pages/price/index.wxml</text>
+<!-- 错误提示 -->
+<mp-toptips 
+  msg="{{topTipsMsg}}" 
+  type="{{topTipsType}}" 
+  show="{{topTipsShow}}">
+</mp-toptips>
+<!-- 确认操作弹框 -->
+<mp-dialog
+  show="{{confirmDialogShow}}"
+  bindbuttontap="closeConfirmDialog"
+  mask="{{true}}"
+  mask-closable="{{false}}"
+  buttons="{{confirmDialogButton}}">
+  <view>{{confirmDialogContent}}</view>
+</mp-dialog>
+<view class="m-priceMaintain-grid">
+  <view class="m-grid-head">
+    <p>厚度</p>
+    <p>AA</p>
+    <p>AB</p>
+    <p>CC</p>
+  </view>
+  <view class="m-grid-content">
+    <mp-slideview
+      wx:for="{{formData}}" 
+      wx:key="index"
+      buttons="{{slideButtons}}"
+      show="{{item.showSlideView}}"
+      bindshow="hideOtherSlideView"
+      data-index="{{index}}"
+      data-item="{{item}}"
+      bindbuttontap="selectDeleteRow">
+      <view
+        class="m-content-row">
+        <p>{{item.thickness}}</p>
+        <p>{{item.A}}</p>
+        <p>{{item.B}}</p>
+        <p>{{item.C}}</p>
+      </view>
+    </mp-slideview>
+  </view>
+</view>

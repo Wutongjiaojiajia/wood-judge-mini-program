@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/calc/index",
     "pages/price/index",
+    "pages/calc/index",
     "pages/result/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#69ac76",
     "navigationBarTitleText": "木材利润计算",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "default"
   },
   "tabBar": {
     "color": "#999",

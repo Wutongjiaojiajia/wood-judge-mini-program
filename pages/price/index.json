@@ -1,4 +1,8 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "板材价格"
+  "usingComponents": {
+    "mp-slideview":"/miniprogram_npm/weui-miniprogram/slideview/slideview",
+    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog"
+  },
+  "navigationBarTitleText": "板价维护",
+  "enablePullDownRefresh": true
 }

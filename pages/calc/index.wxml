@@ -1,3 +1,4 @@
+<!-- 错误提示 -->
 <mp-toptips 
   msg="{{errorMsg}}" 
   type="error" 

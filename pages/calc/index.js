@@ -87,7 +87,7 @@ Page({
       mask: true
     });
     req.queryPriceMaintainInfo(obj)
-    .then((res=>{
+    .then(res=>{
       wx.hideLoading();
       let { code,rows } = res.data;
       if(code === 1 && rows.length !== 0){
@@ -116,7 +116,7 @@ Page({
           panelPrice:[]
         })
       }
-    }))
+    })
     .catch(()=>{
       wx.hideLoading();
       this.setData({

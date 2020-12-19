@@ -1,1 +1,47 @@
-/* pages/price/index.wxss */
+page {
+  height: 100vh;
+}
+.m-priceMaintain-grid {
+  padding: 0 20rpx;
+  background: #FAFAFA;
+  position: relative;
+  height: 100%;
+}
+.m-priceMaintain-grid .m-grid-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #78aa7b;
+  padding: 20rpx 0;
+}
+.m-priceMaintain-grid .m-grid-head p {
+  flex: 1;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bolder;
+}
+.m-priceMaintain-grid .m-grid-content {
+  position: absolute;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: 0;
+  top: 106rpx;
+  overflow-y: auto;
+}
+.m-priceMaintain-grid .m-grid-content .weui-slideview {
+  height: 88rpx !important;
+}
+.m-priceMaintain-grid .m-grid-content .weui-slideview .m-content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+.m-priceMaintain-grid .m-grid-content .weui-slideview .m-content-row p {
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+}
+.m-priceMaintain-grid .m-grid-content .weui-slideview .m-content-row:active {
+  background: rgba(0, 0, 0, 0.1);
+}
