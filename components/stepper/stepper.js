@@ -88,7 +88,6 @@ Component({
         minusFocusStatus:false
       })
       clearInterval(this.data.interval);
-      this.triggerEvent
     },
     // 长按按钮
     longpressButton(e){

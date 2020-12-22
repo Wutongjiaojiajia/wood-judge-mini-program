@@ -1,0 +1,21 @@
+<view
+  wx:if="{{show}}"
+  class="m-halfScreenDialog-mask">
+</view>
+<view
+  wx:if="{{show}}"
+  class="m-halfScreenDialog-main {{show?'bottomToTop':'topToBottom'}}">
+  <view class="m-main-header">
+    <icon
+      bindtap="closeDialog" 
+      class="iconfont icon-guanbi">
+    </icon>
+    <text class="m-header-title">{{title}}</text>
+  </view>
+  <view class="m-main-body">
+    <slot name="mainContent"></slot>
+  </view>
+  <view class="m-main-footer">
+    <slot name="footer"></slot>
+  </view>
+</view>

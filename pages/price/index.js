@@ -1,11 +1,13 @@
 // pages/price/index.js
 import req from '../../request/index.js';
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    CustomBar: app.globalData.CustomBar,
     /** 提示组件信息 */
     topTipsMsg:"",
     topTipsType:"", //info-警告 success-成功 error-错误
@@ -26,6 +28,13 @@ Page({
       {text:'确定'},
       {text:'取消'}
     ],
+    /** 新增&编辑弹框 */
+    popupShow:true,
+    popupTitle:"新增板价",
+    thickness:'', //拼板厚度
+    APrice:'',  //AA板价钱
+    BPrice:'',  //AB板价钱
+    CPrice:'',  //CC板价钱
   },
   // 刷新列表
   refreshList(){
@@ -162,6 +171,18 @@ Page({
         wx.hideLoading();
         reject(err.response.data.info);
       })
+    })
+  },
+  // 打开新增/编辑弹框
+  openAddOrEditDialog(){
+    this.setData({
+      popupShow:true
+    })
+  },
+  // 关闭新增/编辑弹框
+  closeAddOrEditDialog(){
+    this.setData({
+      popupShow:false
     })
   },
   /**

@@ -17,10 +17,13 @@
   isBack="{{true}}">
   <view slot="content">板价维护</view>
   <view slot="backText">
-    <icon class="iconfont icon-jiahao"></icon>
+    <icon
+      bindtap="openAddOrEditDialog" 
+      class="iconfont icon-jiahao">
+    </icon>
   </view>
 </cu-custom>
-<view class="m-priceMaintain-grid">
+<view class="m-priceMaintain-grid" style="top:{{CustomBar}}px">
   <view class="m-grid-head">
     <p>厚度</p>
     <p>AA</p>
@@ -47,3 +50,50 @@
     </mp-slideview>
   </view>
 </view>
+<half-screen-dialog
+  title="{{popupTitle}}"
+  show="{{popupShow}}"
+  bindcloseDialog="closeAddOrEditDialog">
+  <view slot="mainContent">
+    <mp-cells title="">
+      <mp-cell
+        title="厚度(mm)*">
+        <input 
+          class="weui-input"
+          type="number"
+          placeholder="请输入拼板厚度"
+          model:value="{{thickness}}"/>
+      </mp-cell>
+    </mp-cells>
+    <mp-cells title="">
+      <mp-cell
+        title="AA(元/m³)*">
+        <input 
+          class="weui-input"
+          type="number"
+          placeholder="请输入对应厚度AA板价钱"
+          model:value="{{APrice}}"/>
+      </mp-cell>
+      <mp-cell
+        title="AB(元/m³)*">
+        <input 
+          class="weui-input"
+          type="number"
+          placeholder="请输入对应厚度AB板价钱"
+          model:value="{{BPrice}}"/>
+      </mp-cell>
+      <mp-cell
+        title="CC(元/m³)*">
+        <input 
+          class="weui-input"
+          type="number"
+          placeholder="请输入对应厚度CC板价钱"
+          model:value="{{CPrice}}"/>
+      </mp-cell>
+    </mp-cells>
+  </view>
+  <view id="footer" slot="footer">
+    <view class="commonButton m-footer-cancel">取消</view>
+    <view class="commonButton m-footer-confirm">确定</view>
+  </view>
+</half-screen-dialog>

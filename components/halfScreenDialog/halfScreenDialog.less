@@ -1,0 +1,81 @@
+@import '../../styles/iconfont.wxss';
+.m-halfScreenDialog-mask{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    overflow: hidden;
+}
+.m-halfScreenDialog-main{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    z-index: 99;
+    background-color: #FFF;
+    border-top-left-radius: 30rpx;
+    border-top-right-radius: 30rpx;
+    .m-main-header{
+        position: absolute;
+        left: 0rpx;
+        top: 0rpx;
+        right: 0rpx;
+        height: 60rpx;
+        display: flex;
+        padding: 0 20rpx;
+        padding-top: 20rpx;
+        align-items: center;
+        .m-header-title{
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%,0);
+            margin-top: 6rpx;
+            font-size: 34rpx;
+            font-weight: bolder;
+        }
+    }
+    .m-main-body{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 120rpx;
+        top: 80rpx;
+        background: #FAFAFA;
+        overflow-y: auto;
+        padding-bottom: 20rpx;
+    }
+    .m-main-footer{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 120rpx;
+        background: #FAFAFA;
+    }
+}
+.bottomToTop{
+    animation: bottomToTop 0.5s ease 1;
+}
+.topToBottom{
+    animation: topToBottom 0.5s ease 1;
+}
+
+@keyframes bottomToTop{
+    from {
+        height: 0%;
+    }
+    to{
+        height: 70%;
+    }
+}
+@keyframes topToBottom{
+    from {
+        height: 70%;
+    }
+    to{
+        height: 0%;
+    }
+}
