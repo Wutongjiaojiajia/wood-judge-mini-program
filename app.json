@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/result/index",
     "pages/calc/index",
-    "pages/price/index",
-    "pages/result/index"
+    "pages/price/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

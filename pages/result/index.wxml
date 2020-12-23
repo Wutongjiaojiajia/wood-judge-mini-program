@@ -1,0 +1,85 @@
+<cu-custom
+  isBack="{{true}}">
+  <view slot="content">计算结果</view>
+  <view slot="backText">
+    <icon
+      class="iconfont icon-back">
+    </icon>
+  </view>
+</cu-custom>
+<view 
+  class="m-result-main"
+  style="top:{{CustomBar}}px">
+  <mp-cells title="出材率">
+    <mp-cell
+      title="出材率"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        disabled="{{true}}"
+        placeholder="出材率"
+        model:value="{{percentOfOutput}}"/>
+    </mp-cell>
+  </mp-cells>
+  <mp-cells title="质量统计">
+    <mp-cell
+      wx:for="{{qualityStatistics}}"
+      wx:key="index"
+      title="{{item.title}}"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        disabled="{{true}}"
+        placeholder="质量百分比"
+        model:value="{{item.percentDisplay}}"/>
+    </mp-cell>
+  </mp-cells>
+  <mp-cells title="厚度统计">
+    <mp-cell
+      wx:for="{{thicknessStatistics}}"
+      wx:key="index"
+      title="{{item.title}}"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        disabled="{{true}}"
+        placeholder="厚度百分比"
+        model:value="{{item.percentDisplay}}"/>
+    </mp-cell>
+  </mp-cells>
+  <mp-cells title="价格分析">
+    <mp-cell
+      title="成本(元/m³)"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        disabled="{{true}}"
+        placeholder="成本(元/m³)"
+        model:value="{{productCost}}"/>
+    </mp-cell>
+    <mp-cell
+      title="出厂价(元/m³)"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        disabled="{{true}}"
+        placeholder="出厂价(元/m³)"
+        model:value="{{productPrice}}"/>
+    </mp-cell>
+    <mp-cell
+      title="利润(元/m³)"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        disabled="{{true}}"
+        placeholder="利润(元/m³)"
+        model:value="{{profit}}"/>
+    </mp-cell>
+  </mp-cells>
+</view>

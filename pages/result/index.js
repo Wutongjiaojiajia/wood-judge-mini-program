@@ -1,11 +1,30 @@
 // pages/result/index.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    CustomBar: app.globalData.CustomBar,
+    // 计算结果
+    percentOfOutput:'', //出材率
+    // 质量统计
+    qualityStatistics:[
+      {title:'A(%)',percentDisplay:''},
+      {title:'B(%)',percentDisplay:''},
+      {title:'C(%)',percentDisplay:''},
+    ],
+    // 厚度统计
+    thicknessStatistics:[
+      {title:'16mm',percentDisplay:''},
+      {title:'17mm',percentDisplay:''},
+      {title:'18mm',percentDisplay:''},
+    ],
 
+    productCost:'', //每立方米木材成本
+    productPrice:'',  //每立方米木材出厂价
+    profit:'',  //利润
   },
 
   /**
