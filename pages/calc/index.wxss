@@ -1,5 +1,9 @@
 page {
   background: #FAFAFA;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
 }
 .cu-custom {
   background-color: #78aa7b;
@@ -8,14 +12,30 @@ page {
   color: #000;
   font-size: 32rpx;
 }
+.m-calc-main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+.weui-cells .weui-cell_select .weui-cell__bd {
+  font-size: 30rpx;
+}
 .weui-cells .weui-cell_select .weui-cell__bd .weui-label {
-  text-align: center;
+  font-size: 30rpx;
+  padding-left: 32rpx;
+  font-weight: bolder;
+}
+.cellStyle .weui-cell__hd,
+.cellStyle .weui-cell__bd {
+  font-size: 30rpx;
 }
 .cellStyle .weui-cell__hd {
-  width: 250rpx;
+  font-weight: bolder;
 }
-.longCell .weui-cell__hd {
-  font-size: 28rpx;
+.cellStyle .weui-cell__hd {
+  width: 300rpx;
 }
 .thicknessStatisticsTitle {
   display: flex;
@@ -39,18 +59,25 @@ page {
   align-items: center;
   padding: 32rpx;
   height: 112rpx;
+  position: relative;
 }
 .commonThicknessStatistics .weui-slideview .thicknessStatisticsCell .cellTitle {
   width: 250rpx;
+  font-size: 30rpx;
+  font-weight: bolder;
 }
 .commonThicknessStatistics .weui-slideview .thicknessStatisticsCell .cellTitle .weui-select {
   padding: 0;
 }
 .commonThicknessStatistics .weui-slideview .thicknessStatisticsCell .cellContent {
   padding-right: 40rpx;
+  font-size: 30rpx;
   display: flex;
   flex: 1;
   justify-content: center;
+}
+.commonThicknessStatistics .weui-cell {
+  padding: 0;
 }
 .qualityStatisticsTitle {
   display: flex;
@@ -71,6 +98,8 @@ page {
 }
 .qualityStepper .commonQualityCell .cellTitle {
   width: 250rpx;
+  font-size: 30rpx;
+  font-weight: bolder;
 }
 .qualityStepper .commonQualityCell .cellContent {
   display: flex;
@@ -83,12 +112,26 @@ page {
 }
 .qualityInput .commonQualityCell .cellTitle {
   width: 250rpx;
+  font-size: 30rpx;
+  font-weight: bolder;
 }
 .qualityInput .commonQualityCell .cellContent {
   display: flex;
   flex: 1;
+  font-size: 30rpx;
 }
-.calcButton {
+.m-footer-button {
+  position: absolute;
+  background: #78aa7b;
+  color: #F1F1F1;
+  padding: 20rpx 150rpx;
+  font-size: 32rpx;
+  font-weight: bolder;
+  border-radius: 10rpx;
   margin: 40rpx 0;
-  margin-bottom: 20rpx;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.m-footer-button:active {
+  opacity: 0.7;
 }

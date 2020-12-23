@@ -1,9 +1,9 @@
 <!-- 错误提示 -->
-<mp-toptips 
-  msg="{{errorMsg}}" 
-  type="error" 
-  show="{{errorMsg}}">
-</mp-toptips>
+<toptips 
+  show="{{topTipsShow}}"
+  msg="{{topTipsMsg}}"
+  type="{{topTipsType}}">
+</toptips>
 <!-- 警示弹框 -->
 <mp-dialog 
   show="{{alertDialogShow}}"
@@ -25,203 +25,206 @@
 <cu-custom>
   <view slot="content">木材计算</view>
 </cu-custom>
-<view class="weui-cells__title">木材规格</view>
-<view class="weui-cells weui-cells_after-title">
-  <!-- 厚度标准 -->
-  <view class="weui-cell weui-cell_select">
-    <view class="weui-cell__bd weui-cell__bd_in-select-after">
-      <view class="weui-label">厚度标准</view>
-    </view>
-    <view class="weui-cell__bd">
-      <picker
-        mode="selector"
-        range="{{standardList}}"
-        range-key="text"
-        value="{{standardIndex}}"
-        bindchange="changeStandardSelect">
-        <view 
-          class="weui-select weui-select_in-select-after">{{standardList[standardIndex].text}}
-        </view>
-      </picker>
-    </view>
-  </view>
-  <!-- 木材等级 -->
-  <view class="weui-cell weui-cell_select">
-    <view class="weui-cell__bd weui-cell__bd_in-select-after">
-      <view class="weui-label">木材等级</view>
-    </view>
-    <view class="weui-cell__bd">
-      <picker
-        mode="selector"
-        range="{{levelList}}"
-        range-key="text"
-        value="{{levelIndex}}"
-        bindchange="changeLevelSelect">
-        <view 
-          class="weui-select weui-select_in-select-after">{{levelList[levelIndex].text}}
-        </view>
-      </picker>
-    </view>
-  </view>
-</view>
-<!-- 成本 -->
-<mp-cells title="成本">
-  <!-- 木材成本 -->
-  <mp-cell
-    title="木材成本(元/m³)*"
-    ext-class="cellStyle longCell">
-    <input 
-      class="weui-input"
-      type="number"
-      placeholder="请输入木材成本"
-      model:value="{{woodCost}}"/>
-  </mp-cell>
-  <!-- 固定成本 -->
-  <mp-cell
-    title="固定成本(元/m³)*"
-    ext-class="cellStyle longCell">
-    <input 
-      class="weui-input"
-      type="number"
-      placeholder="请输入固定成本"
-      model:value="{{fixedCost}}"/>
-  </mp-cell>
-  <!-- 刨花 -->
-  <mp-cell
-    title="刨花(元/m³)*"
-    ext-class="cellStyle">
-    <input 
-      class="weui-input"
-      type="number"
-      placeholder="请输入刨花价钱"
-      model:value="{{shavingPrice}}"/>
-  </mp-cell>
-</mp-cells>
-<!-- 厚度统计 -->
-<view class="thicknessStatisticsTitle">
-  <view class="weui-cells__title">厚度统计</view>
-  <view class="operateArea">
-    <icon
-      bindtap="addWoodThicknessRow"
-      class="iconfont icon-jiahao">
-    </icon>
-    <icon
-      bindtap="changeTicknessStatisticsState"
-      class="iconfont icon-change">
-    </icon>
-  </view>
-</view>
-<!-- 厚度 条数 统计 -->
-<!-- thicknessStatisticsState 0-条数 1-百分比 -->
-<view
-  wx:if="{{thicknessStatisticsState === 0}}"
-  class="weui-cells weui-cells_after-title thicknessStatisticsStepper commonThicknessStatistics">
-  <mp-slideview
-    wx:for="{{thicknessStatistics}}"
-    wx:key="index"
-    buttons="{{thicknessStatisticsSlideButtons}}"
-    bindbuttontap="thicknessStatisticsSlideButtonTap"
-    data-index="{{index}}">
-    <view class="weui-cell weui-cell_select thicknessStatisticsCell">
-      <view class="weui-cell__hd cellTitle">
-        <picker 
-          range="{{thicknessList}}"
+<view 
+  class="m-calc-main"
+  style="top:{{CustomBar}}px">
+  <view class="weui-cells__title">木材规格</view>
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 厚度标准 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__bd weui-cell__bd_in-select-after">
+        <view class="weui-label">厚度标准</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker
+          mode="selector"
+          range="{{standardList}}"
           range-key="text"
-          bindchange="woodThicknessSelectChange"
-          data-index="{{index}}">
-          <view class="weui-select">{{thicknessStatistics[index].resultTitle}}</view>
+          value="{{standardIndex}}"
+          bindchange="changeStandardSelect">
+          <view 
+            class="weui-select weui-select_in-select-after">{{standardList[standardIndex].text}}
+          </view>
         </picker>
       </view>
-      <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
+    </view>
+    <!-- 木材等级 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__bd weui-cell__bd_in-select-after">
+        <view class="weui-label">木材等级</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker
+          mode="selector"
+          range="{{levelList}}"
+          range-key="text"
+          value="{{levelIndex}}"
+          bindchange="changeLevelSelect">
+          <view 
+            class="weui-select weui-select_in-select-after">{{levelList[levelIndex].text}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <!-- 成本 -->
+  <mp-cells title="成本">
+    <!-- 木材成本 -->
+    <mp-cell
+      title="木材成本(元/m³)*"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        placeholder="请输入木材成本"
+        model:value="{{woodCost}}"/>
+    </mp-cell>
+    <!-- 固定成本 -->
+    <mp-cell
+      title="固定成本(元/m³)*"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        placeholder="请输入固定成本"
+        model:value="{{fixedCost}}"/>
+    </mp-cell>
+    <!-- 刨花 -->
+    <mp-cell
+      title="刨花(元/m³)*"
+      ext-class="cellStyle">
+      <input 
+        class="weui-input"
+        type="number"
+        placeholder="请输入刨花价钱"
+        model:value="{{shavingPrice}}"/>
+    </mp-cell>
+  </mp-cells>
+  <!-- 厚度统计 -->
+  <view class="thicknessStatisticsTitle">
+    <view class="weui-cells__title">厚度统计</view>
+    <view class="operateArea">
+      <icon
+        bindtap="addWoodThicknessRow"
+        class="iconfont icon-jiahao">
+      </icon>
+      <icon
+        bindtap="changeTicknessStatisticsState"
+        class="iconfont icon-change">
+      </icon>
+    </view>
+  </view>
+  <!-- 厚度 条数 统计 -->
+  <!-- thicknessStatisticsState 0-条数 1-百分比 -->
+  <view
+    wx:if="{{thicknessStatisticsState === 0}}"
+    class="weui-cells weui-cells_after-title thicknessStatisticsStepper commonThicknessStatistics">
+    <mp-slideview
+      wx:for="{{thicknessStatistics}}"
+      wx:key="index"
+      buttons="{{thicknessStatisticsSlideButtons}}"
+      bindbuttontap="thicknessStatisticsSlideButtonTap"
+      data-index="{{index}}"
+      class="weui-cell">
+      <view class="weui-cell_select thicknessStatisticsCell">
+        <view class="weui-cell__hd cellTitle">
+          <picker 
+            range="{{thicknessList}}"
+            range-key="text"
+            bindchange="woodThicknessSelectChange"
+            data-index="{{index}}">
+            <view class="weui-select">{{thicknessStatistics[index].resultTitle}}</view>
+          </picker>
+        </view>
+        <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
+          <stepper
+          bindvalueChange="thicknessPieceValueChange" 
+          data-index="{{index}}">
+          </stepper>
+        </view>
+      </view>
+    </mp-slideview>
+  </view>
+  <!-- 厚度 百分比 统计 -->
+  <!-- thicknessStatisticsState 0-条数 1-百分比 -->
+  <view
+    wx:if="{{thicknessStatisticsState === 1}}"
+    class="weui-cells weui-cells_after-title thicknessStatisticsInput commonThicknessStatistics">
+    <mp-slideview
+      wx:for="{{thicknessStatistics}}"
+      wx:key="index"
+      buttons="{{thicknessStatisticsSlideButtons}}"
+      bindbuttontap="thicknessStatisticsSlideButtonTap"
+      data-index="{{index}}"
+      class="weui-cell">
+      <view class="weui-cell_select thicknessStatisticsCell">
+        <view class="weui-cell__hd cellTitle">
+          <picker 
+            range="{{thicknessList}}"
+            range-key="text"
+            bindchange="woodThicknessSelectChange"
+            data-index="{{index}}">
+            <view class="weui-select">{{thicknessStatistics[index].resultTitle}}</view>
+          </picker>
+        </view>
+        <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
+          <input 
+            bindinput="thicknessPercentChange"
+            class="weui-input" 
+            type="number"
+            data-index="{{index}}"
+            placeholder="请输入厚度占比" />
+        </view>
+      </view>
+    </mp-slideview>
+  </view>
+  <!-- 质量统计 -->
+  <view class="qualityStatisticsTitle">
+    <view class="weui-cells__title">质量统计</view>
+    <icon
+      class="iconfont icon-change"
+      bindtap="changeQualityStatisticsState"></icon>
+  </view>
+  <!-- 质量 条数 统计 -->
+  <!-- qualityStatisticsState 0-百分比 1-条数 -->
+  <view
+    wx:if="{{qualityStatisticsState === 0}}"
+    class="weui-cells qualityStepper">
+    <view
+      wx:for="{{qualityStatistics}}"
+      wx:key="index"
+      class="weui-cell commonQualityCell">
+      <view class="cellTitle">{{item.recordTitle}}</view>
+      <view class="cellContent">
         <stepper
-        bindvalueChange="thicknessPieceValueChange" 
-        data-index="{{index}}">
+          bindvalueChange="qualityPieceValueChange" 
+          data-index="{{index}}">
         </stepper>
       </view>
     </view>
-  </mp-slideview>
-</view>
-<!-- 厚度 百分比 统计 -->
-<!-- thicknessStatisticsState 0-条数 1-百分比 -->
-<view
-  wx:if="{{thicknessStatisticsState === 1}}"
-  class="weui-cells weui-cells_after-title thicknessStatisticsInput commonThicknessStatistics">
-  <mp-slideview
-    wx:for="{{thicknessStatistics}}"
-    wx:key="index"
-    buttons="{{thicknessStatisticsSlideButtons}}"
-    bindbuttontap="thicknessStatisticsSlideButtonTap"
-    data-index="{{index}}">
-    <view class="weui-cell weui-cell_select thicknessStatisticsCell">
-      <view class="weui-cell__hd cellTitle">
-        <picker 
-          range="{{thicknessList}}"
-          range-key="text"
-          bindchange="woodThicknessSelectChange"
-          data-index="{{index}}">
-          <view class="weui-select">{{thicknessStatistics[index].resultTitle}}</view>
-        </picker>
-      </view>
-      <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
-        <input 
-          bindinput="thicknessPercentChange"
-          class="weui-input" 
+  </view>
+  <!-- 质量 百分比 统计 -->
+  <!-- qualityStatisticsState 0-百分比 1-条数 -->
+  <view
+    wx:if="{{qualityStatisticsState === 1}}"
+    class="weui-cells qualityInput">
+    <view
+      wx:for="{{qualityStatistics}}"
+      wx:key="index"
+      class="weui-cell commonQualityCell">
+      <view class="cellTitle">{{item.resultTitle}}</view>
+      <view class="cellContent">
+        <input
+          bindinput="qualityPercentChange"
+          class="weui-input"
           type="number"
           data-index="{{index}}"
-          placeholder="请输入厚度占比" />
+          placeholder="请输入{{item.quality}}质量占比"/>
       </view>
     </view>
-  </mp-slideview>
-</view>
-<!-- 质量统计 -->
-<view class="qualityStatisticsTitle">
-  <view class="weui-cells__title">质量统计</view>
-  <icon
-    class="iconfont icon-change"
-    bindtap="changeQualityStatisticsState"></icon>
-</view>
-<!-- 质量 条数 统计 -->
-<!-- qualityStatisticsState 0-百分比 1-条数 -->
-<view
-  wx:if="{{qualityStatisticsState === 0}}"
-  class="weui-cells qualityStepper">
+  </view>
   <view
-    wx:for="{{qualityStatistics}}"
-    wx:key="index"
-    class="weui-cell commonQualityCell">
-    <view class="cellTitle">{{item.recordTitle}}</view>
-    <view class="cellContent">
-      <stepper
-        bindvalueChange="qualityPieceValueChange" 
-        data-index="{{index}}">
-      </stepper>
-    </view>
+    class="m-footer-button"
+    bindtap="goToNextPage">计算
   </view>
 </view>
-<!-- 质量 百分比 统计 -->
-<!-- qualityStatisticsState 0-百分比 1-条数 -->
-<view
-  wx:if="{{qualityStatisticsState === 1}}"
-  class="weui-cells qualityInput">
-  <view
-    wx:for="{{qualityStatistics}}"
-    wx:key="index"
-    class="weui-cell commonQualityCell">
-    <view class="cellTitle">{{item.resultTitle}}</view>
-    <view class="cellContent">
-      <input
-        bindinput="qualityPercentChange"
-        class="weui-input"
-        type="number"
-        data-index="{{index}}"
-        placeholder="请输入{{item.quality}}质量占比"/>
-    </view>
-  </view>
-</view>
-
-<button
-  bindtap="goToNextPage"
-  style="background-color:#78aa7b"
-  type="primary"
-  class="calcButton">计算
-</button>

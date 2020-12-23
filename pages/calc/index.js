@@ -1,13 +1,18 @@
 // pages/calc/index.js
 import req from '../../request/index.js';
 import utils from '../../utils/util.js';
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    CustomBar: app.globalData.CustomBar,
     /** 提示信息 */
-    errorMsg:'',  //顶部提示错误信息
+    /** 提示组件信息 */
+    topTipsMsg:"",
+    topTipsType:"", //warn-警告 success-成功 error-错误
+    topTipsShow:false,
     /** 警示弹框 */
     alertDialogShow:false, //是否显示弹框
     alertDialogContent:'', //弹框文字信息
@@ -112,9 +117,9 @@ Page({
           originWoodList:[],  //价格数据
           originThicknessList:[], //完整厚度列表
           thicknessList:[], //厚度列表
-          errorMsg:'木材价格维护列表为空',
           panelPrice:[]
         })
+        this.showTopTips('error','木材价格维护列表为空');
       }
     })
     .catch(()=>{
@@ -123,9 +128,9 @@ Page({
         originWoodList:[],  //价格数据
         originThicknessList:[], //完整厚度列表
         thicknessList:[], //厚度列表
-        errorMsg:'查询失败，请联系管理员',
         panelPrice:[]
       })
+      this.showTopTips('error','查询失败，请联系管理员');
     })
   },
   // 木材规格-厚度标准选中变化
@@ -371,9 +376,7 @@ Page({
         break;
     }
     if(msg !== ""){
-      this.setData({
-        errorMsg:msg
-      })
+      this.showTopTips('warn',msg);
       return;
     }
     switch (this.data.thicknessStatisticsState) {
@@ -406,9 +409,7 @@ Page({
         break;
     }
     if(msg !== ""){
-      this.setData({
-        errorMsg:msg
-      })
+      this.showTopTips('warn',msg);
       return;
     }
     // 质量统计
@@ -442,9 +443,7 @@ Page({
         break;
     }
     if(msg !== ""){
-      this.setData({
-        errorMsg:msg
-      })
+      this.showTopTips('warn',msg);
       return;
     }
     switch (this.data.thicknessStatisticsState) {
@@ -580,6 +579,14 @@ Page({
     this.setData({
       profit
     })
+  },
+  // 显示toptips
+  showTopTips(type,msg){
+    this.setData({
+      topTipsShow:true,
+      topTipsType:type,
+      topTipsMsg:msg,
+    })    
   },
   /**
    * 生命周期函数--监听页面加载

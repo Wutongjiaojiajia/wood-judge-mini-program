@@ -1,5 +1,9 @@
 page{
 	background: #FAFAFA;
+	height: 100vh;
+	width: 100vw;
+	position: relative;
+	overflow: hidden;
 }
 .cu-custom{
 	background-color: #78aa7b;
@@ -10,23 +14,34 @@ page{
 		}
 	}
 }
+.m-calc-main{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-y: auto;
+}
 .weui-cells{
 	.weui-cell_select{
 		.weui-cell__bd{
+			font-size: 30rpx;
 			.weui-label{
-				text-align: center;
+				font-size: 30rpx;
+				padding-left: 32rpx;
+				font-weight: bolder;
 			}
 		}
 	}
 }
 .cellStyle{
-	.weui-cell__hd{
-		width: 250rpx;
+	.weui-cell__hd,.weui-cell__bd{
+		font-size: 30rpx;
 	}
-}
-.longCell{
 	.weui-cell__hd{
-		font-size: 28rpx;
+		font-weight: bolder;
+	}
+	.weui-cell__hd{
+		width: 300rpx;
 	}
 }
 
@@ -56,19 +71,26 @@ page{
 			align-items: center;
 			padding: 32rpx;
 			height: 112rpx;
+			position: relative;
 			.cellTitle{
 				width: 250rpx;
+				font-size: 30rpx;
+				font-weight: bolder;
 				.weui-select{
 					padding: 0;
 				}
 			}
 			.cellContent{
 				padding-right: 40rpx;
+				font-size: 30rpx;
 				display: flex;
 				flex: 1;
 				justify-content: center;
 			}
 		}
+	}
+	.weui-cell{
+		padding: 0;
 	}
 }
 
@@ -93,6 +115,8 @@ page{
 		height: 112rpx;
 		.cellTitle{
 			width: 250rpx; 
+			font-size: 30rpx;
+			font-weight: bolder;
 		}
 		.cellContent{
 			display: flex;
@@ -107,16 +131,31 @@ page{
 		display: flex;
 		align-items: center;
 		.cellTitle{
-			width: 250rpx; 
+			width: 250rpx;
+			font-size: 30rpx;
+			font-weight: bolder;
 		}
 		.cellContent{
 			display: flex;
 			flex: 1;
+			font-size: 30rpx;
 		}
 	}
 }
 
-.calcButton{
+.m-footer-button{
+	position: absolute;
+	background: #78aa7b;
+	color: #F1F1F1;
+	padding: 20rpx 150rpx;
+	font-size: 32rpx;
+	font-weight: bolder;
+	border-radius: 10rpx;
 	margin: 40rpx 0;
-	margin-bottom: 20rpx;
+	left: 50%;
+	transform: translate(-50%,0);
+	&:active{
+		opacity: 0.7;
+	}
 }
+
