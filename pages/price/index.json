@@ -9,6 +9,5 @@
     "toptips":"/components/toptips/toptips"
   },
   "navigationBarTitleText": "板价维护",
-  "enablePullDownRefresh": true,
   "navigationStyle":"custom"
 }

@@ -21,7 +21,9 @@ Page({
     selectRowData:null,  //选中行下标
     totalPage:0,  //总页数
     pageNumber:0, //第x页
-    pageSize:20,  //每次查询数量
+    pageSize:100,  //每次查询数量
+    finished:true,  //是否已经结束调用接口
+    pullDownLoading:false, //下拉刷新状态
     /** 确认操作弹框 */
     confirmDialogShow:false,  //是否显示弹框
     confirmDialogContent:'',  //弹框文字信息
@@ -57,10 +59,16 @@ Page({
       title: '查询中...',
       mask: true
     });
+    this.setData({
+      pullDownLoading:true
+    })
     req.queryPriceMaintainInfo(obj)
     .then(res=>{
       wx.hideLoading();
       let { code,rows,total } = res.data;
+      this.setData({
+        pullDownLoading:false
+      })
       if(code === 1 && rows.length !== 0){
         let originData = rows.splice(0);
         originData.forEach(item => {
@@ -68,13 +76,15 @@ Page({
         });
         let totalPage = Math.floor(total/this.data.pageSize);
         let actualTotalPage = total%this.data.pageSize === 0?totalPage:totalPage+1; //实际总页数
+        console.log("actualTotalPage",actualTotalPage);
         this.setData({
           formData:originData,
           totalPage:actualTotalPage
         })
         if(actualTotalPage > 1){
           this.setData({
-            pageNumber:this.data.pageNumber + 1
+            pageNumber:this.data.pageNumber + 1,
+            finished:false
           })
         }
       }else{
@@ -87,9 +97,42 @@ Page({
     .catch(()=>{
       wx.hideLoading();
       this.setData({
+        pullDownLoading:false
+      })
+      this.setData({
         formData:[],
         totalPage:1
       })
+    })
+  },
+  // 上拉加载列表
+  pullupLoadList(){
+    if(this.data.finished){
+      return;
+    }
+    let obj = {
+      currentPage:this.data.pageNumber + 1, //第X页
+      pageSize:this.data.pageSize,  //每页大小
+      orderBy:'thickness' //厚度升序
+    };
+    req.queryPriceMaintainInfo(obj)
+    .then((res)=>{
+      let { code,total,rows } = res.data;
+      if(code === 1 && total > 0){
+        let originData = rows.splice(0);
+        originData.forEach(item => {
+          item.showSlideView = false;
+        });
+        this.setData({
+          formData:this.data.formData.concat(originData),
+          pageNumber:this.data.pageNumber + 1
+        })
+        if(this.data.pageNumber >= this.data.totalPage){
+          this.setData({
+            finished:true
+          })
+        }
+      }
     })
   },
   // 隐藏其他侧滑
@@ -370,20 +413,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

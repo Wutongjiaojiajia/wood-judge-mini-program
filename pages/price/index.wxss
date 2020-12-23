@@ -21,7 +21,6 @@ page {
   color: #000;
 }
 .m-priceMaintain-grid {
-  padding: 0 20rpx;
   background: #FAFAFA;
   position: absolute;
   bottom: 0;
@@ -34,6 +33,7 @@ page {
   align-items: center;
   border-bottom: 1px solid #78aa7b;
   padding: 20rpx 0;
+  margin: 0 20rpx;
 }
 .m-priceMaintain-grid .m-grid-head p {
   flex: 1;
@@ -43,8 +43,8 @@ page {
 }
 .m-priceMaintain-grid .m-grid-content {
   position: absolute;
-  left: 20rpx;
-  right: 20rpx;
+  left: 0rpx;
+  right: 0rpx;
   bottom: 0;
   top: 106rpx;
   overflow-y: auto;
@@ -56,7 +56,7 @@ page {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20rpx 0;
+  padding: 20rpx;
 }
 .m-priceMaintain-grid .m-grid-content .weui-slideview .m-content-row p {
   flex: 1;

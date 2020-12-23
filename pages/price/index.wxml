@@ -31,7 +31,14 @@
     <p>AB</p>
     <p>CC</p>
   </view>
-  <view class="m-grid-content">
+  <scroll-view
+    scroll-y="{{true}}"
+    refresher-enabled="{{true}}"
+    class="m-grid-content"
+    bindrefresherrefresh="refreshList"
+    bindscrolltolower="pullupLoadList"
+    enable-back-to-top="{{true}}"
+    refresher-triggered="{{pullDownLoading}}">
     <mp-slideview
       wx:for="{{formData}}" 
       wx:key="index"
@@ -52,7 +59,7 @@
         <p>{{item.C}}</p>
       </view>
     </mp-slideview>
-  </view>
+  </scroll-view>
 </view>
 <half-screen-dialog
   title="{{popupTitle}}"
