@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/price/index",
     "pages/calc/index",
+    "pages/price/index",
     "pages/result/index"
   ],
   "window": {

@@ -26,10 +26,10 @@
 </cu-custom>
 <view class="m-priceMaintain-grid" style="top:{{CustomBar}}px">
   <view class="m-grid-head">
-    <p>厚度</p>
-    <p>AA</p>
-    <p>AB</p>
-    <p>CC</p>
+    <p>厚度(mm)</p>
+    <p>AA(元/m³)</p>
+    <p>AB(元/m³)</p>
+    <p>CC(元/m³)</p>
   </view>
   <scroll-view
     scroll-y="{{true}}"
