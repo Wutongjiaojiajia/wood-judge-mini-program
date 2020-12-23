@@ -67,7 +67,8 @@
           class="weui-input"
           type="number"
           placeholder="请输入拼板厚度"
-          model:value="{{thickness}}"/>
+          model:value="{{thickness}}"
+          disabled="{{popupType === 'edit'}}"/>
       </mp-cell>
     </mp-cells>
     <mp-cells title="">

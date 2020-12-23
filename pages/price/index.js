@@ -30,7 +30,7 @@ Page({
       {text:'取消'}
     ],
     /** 新增&编辑弹框 */
-    popupShow:true,
+    popupShow:false,
     popupTitle:"新增板价",
     popupType:null, //弹框类型
     thickness:'', //拼板厚度
@@ -240,7 +240,6 @@ Page({
         break;
     }
     if(msg !== ""){
-      console.log(wx.createSelectorQuery().select(".topTipsExtStyle"));
       this.setData({
         topTipsMsg:msg,
         topTipsType:'error',

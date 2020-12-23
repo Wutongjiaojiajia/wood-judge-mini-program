@@ -1,9 +1,10 @@
 <view
-  wx:if="{{show}}"
-  class="m-halfScreenDialog-mask">
+  hidden="{{!show}}"
+  class="m-halfScreenDialog-mask"
+  bindtap="closeDialog">
 </view>
 <view
-  wx:if="{{show}}"
+  hidden="{{!show}}"
   class="m-halfScreenDialog-main {{show?'bottomToTop':'topToBottom'}}">
   <view class="m-main-header">
     <icon
