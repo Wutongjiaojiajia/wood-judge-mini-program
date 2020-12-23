@@ -1,0 +1,6 @@
+<!--components/toptips/toptips.wxml-->
+<view 
+  class="toptips {{type}}"
+  hidden="{{!show}}"
+  style="top:{{CustomBar+10}}px">{{msg}}
+</view>

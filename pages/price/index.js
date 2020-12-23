@@ -1,5 +1,6 @@
 // pages/price/index.js
 import req from '../../request/index.js';
+import utils from '../../utils/util.js';
 const app = getApp();
 Page({
 
@@ -10,7 +11,7 @@ Page({
     CustomBar: app.globalData.CustomBar,
     /** 提示组件信息 */
     topTipsMsg:"",
-    topTipsType:"", //info-警告 success-成功 error-错误
+    topTipsType:"", //warn-警告 success-成功 error-错误
     topTipsShow:false,
     /** 提示组件信息 */
     formData:[],  //列表数据
@@ -31,6 +32,7 @@ Page({
     /** 新增&编辑弹框 */
     popupShow:true,
     popupTitle:"新增板价",
+    popupType:null, //弹框类型
     thickness:'', //拼板厚度
     APrice:'',  //AA板价钱
     BPrice:'',  //AB板价钱
@@ -174,15 +176,167 @@ Page({
     })
   },
   // 打开新增/编辑弹框
-  openAddOrEditDialog(){
-    this.setData({
-      popupShow:true
-    })
+  openAddOrEditDialog(e){
+    let { type,item } = e.currentTarget.dataset;
+    switch (type) {
+      case 'add':
+        this.setData({
+          popupTitle:'新增板价',
+          popupShow:true,
+          popupType:type,
+          thickness:'', //厚度
+          APrice:'',  //AA价
+          BPrice:'',  //AB价
+          CPrice:'' //CC价
+        })
+        break;
+      case 'edit':
+        this.setData({
+          popupTitle:'编辑板价',
+          popupShow:true,
+          popupType:type,
+          thickness:item.thickness, //厚度
+          APrice:item.A,  //AA价
+          BPrice:item.B,  //AB价
+          CPrice:item.C //CC价
+        })
+        break;
+    }
   },
   // 关闭新增/编辑弹框
   closeAddOrEditDialog(){
     this.setData({
+      thickness:'',
+      APrice:'',
+      BPrice:'',
+      CPrice:'',
       popupShow:false
+    })
+  },
+  // 保存新增/编辑弹框
+  saveAddOrEditDialog(){
+    let msg =  "";
+    switch (true) {
+      case this.data.thickness === "":
+        msg = "请输入拼板厚度";
+        break;
+      case this.data.APrice === "":
+        msg = "请输入对应厚度AA板的价钱"
+        break;
+      case !utils.validateCorrectMoney(Number(this.data.APrice)):
+        msg = "请输入正确的AA板价钱";
+        break;
+      case this.data.BPrice === "":
+        msg = "请输入对应厚度AB板的价钱"
+        break;
+      case !utils.validateCorrectMoney(Number(this.data.BPrice)):
+        msg = "请输入正确的AB板价钱";
+        break;
+      case this.data.CPrice === "":
+        msg = "请输入对应厚度CC板的价钱"
+        break;
+      case !utils.validateCorrectMoney(Number(this.data.CPrice)):
+        msg = "请输入正确的CC板价钱";
+        break;
+    }
+    if(msg !== ""){
+      console.log(wx.createSelectorQuery().select(".topTipsExtStyle"));
+      this.setData({
+        topTipsMsg:msg,
+        topTipsType:'error',
+        topTipsShow:true,
+      })
+      return;
+    }
+    switch (this.data.popupType) {
+      case 'add':
+        this.addThicknessAndPrice();
+        break;
+      case 'edit':
+        this.editThicknessAndPrice();
+        break;
+    }
+  },
+  // 新增板价信息
+  addThicknessAndPrice(){
+    let obj = {
+      thickness:this.data.thickness,  //厚度
+      A:this.data.APrice, //AA板价钱
+      B:this.data.BPrice, //AA板价钱
+      C:this.data.CPrice, //AA板价钱
+    };
+    wx.showLoading({
+      title: '新增中...',
+      mask: true
+    });
+    req.insertPriceMaintainInfo(obj)
+    .then(res=>{
+      wx.hideLoading();
+      let { code,info } = res.data;
+      if(code === 1){
+        this.setData({
+          topTipsMsg:info,
+          topTipsType:'success',
+          topTipsShow:true,
+        })
+        this.closeAddOrEditDialog();
+        this.refreshList();
+      }else{
+        this.setData({
+          topTipsMsg:info,
+          topTipsType:'error',
+          topTipsShow:true,
+        })
+      }
+    })
+    .catch(err=>{
+      wx.hideLoading();
+      this.setData({
+        topTipsMsg:err.response.data.info,
+        topTipsType:'error',
+        topTipsShow:true,
+      })
+    })
+  },
+  // 编辑板价信息
+  editThicknessAndPrice(){
+    let obj = {
+      thickness:this.data.thickness,  //厚度
+      A:this.data.APrice, //AA板价钱
+      B:this.data.BPrice, //AA板价钱
+      C:this.data.CPrice, //AA板价钱
+    };
+    wx.showLoading({
+      title: '编辑中...',
+      mask: true
+    });
+    req.updatePriceMaintainInfo(obj)
+    .then(res=>{
+      wx.hideLoading();
+      let { code,info } = res.data;
+      if(code === 1){
+        this.setData({
+          topTipsMsg:info,
+          topTipsType:'success',
+          topTipsShow:true,
+        })
+        this.closeAddOrEditDialog();
+        this.refreshList();
+      }else{
+        this.setData({
+          topTipsMsg:info,
+          topTipsType:'error',
+          topTipsShow:true,
+        })
+      }
+    })
+    .catch(err=>{
+      wx.hideLoading();
+      this.setData({
+        topTipsMsg:err.response.data.info,
+        topTipsType:'error',
+        topTipsShow:true,
+      })
     })
   },
   /**

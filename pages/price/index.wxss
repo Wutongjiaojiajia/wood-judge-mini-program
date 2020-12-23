@@ -3,6 +3,9 @@ page {
   width: 100vw;
   position: relative;
 }
+.topTipsExtStyle {
+  background-color: #78aa7b;
+}
 .cu-custom {
   background-color: #78aa7b;
 }
@@ -62,6 +65,14 @@ page {
 }
 .m-priceMaintain-grid .m-grid-content .weui-slideview .m-content-row:active {
   background: rgba(0, 0, 0, 0.1);
+}
+.halfScreenDialogCell .weui-cell__hd {
+  width: 200rpx;
+  font-size: 30rpx;
+  font-weight: bolder;
+}
+.halfScreenDialogCell .weui-cell__bd {
+  font-size: 30rpx;
 }
 #footer {
   display: flex;

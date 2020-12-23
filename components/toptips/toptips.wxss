@@ -1,0 +1,24 @@
+.toptips {
+  position: fixed;
+  left: 10rpx;
+  right: 10rpx;
+  border-radius: 20rpx;
+  padding: 20rpx 0;
+  background: #e94f4a;
+  text-align: center;
+  z-index: 99;
+  font-size: 28rpx;
+  color: #FFF;
+}
+.error {
+  background: #e94f4a;
+  color: #FFF;
+}
+.success {
+  background: #57bd6a;
+  color: #FFF;
+}
+.warn {
+  background: #f5d7ae;
+  color: #dda352;
+}

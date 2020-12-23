@@ -1,9 +1,9 @@
-<!-- 错误提示 -->
-<mp-toptips 
-  msg="{{topTipsMsg}}" 
-  type="{{topTipsType}}" 
-  show="{{topTipsShow}}">
-</mp-toptips>
+<!-- 提示 -->
+<toptips
+  show="{{topTipsShow}}"
+  msg="{{topTipsMsg}}"
+  type="{{topTipsType}}">
+</toptips>
 <!-- 确认操作弹框 -->
 <mp-dialog
   show="{{confirmDialogShow}}"
@@ -18,7 +18,8 @@
   <view slot="content">板价维护</view>
   <view slot="backText">
     <icon
-      bindtap="openAddOrEditDialog" 
+      bindtap="openAddOrEditDialog"
+      data-type="add" 
       class="iconfont icon-jiahao">
     </icon>
   </view>
@@ -41,7 +42,10 @@
       data-item="{{item}}"
       bindbuttontap="selectDeleteRow">
       <view
-        class="m-content-row">
+        class="m-content-row"
+        bindtap="openAddOrEditDialog"
+        data-type="edit"
+        data-item="{{item}}">
         <p>{{item.thickness}}</p>
         <p>{{item.A}}</p>
         <p>{{item.B}}</p>
@@ -57,7 +61,8 @@
   <view slot="mainContent">
     <mp-cells title="">
       <mp-cell
-        title="厚度(mm)*">
+        title="厚度(mm)*"
+        ext-class="halfScreenDialogCell">
         <input 
           class="weui-input"
           type="number"
@@ -67,7 +72,8 @@
     </mp-cells>
     <mp-cells title="">
       <mp-cell
-        title="AA(元/m³)*">
+        title="AA(元/m³)*"
+        ext-class="halfScreenDialogCell">
         <input 
           class="weui-input"
           type="number"
@@ -75,7 +81,8 @@
           model:value="{{APrice}}"/>
       </mp-cell>
       <mp-cell
-        title="AB(元/m³)*">
+        title="AB(元/m³)*"
+        ext-class="halfScreenDialogCell">
         <input 
           class="weui-input"
           type="number"
@@ -83,7 +90,8 @@
           model:value="{{BPrice}}"/>
       </mp-cell>
       <mp-cell
-        title="CC(元/m³)*">
+        title="CC(元/m³)*"
+        ext-class="halfScreenDialogCell">
         <input 
           class="weui-input"
           type="number"
@@ -93,7 +101,13 @@
     </mp-cells>
   </view>
   <view id="footer" slot="footer">
-    <view class="commonButton m-footer-cancel">取消</view>
-    <view class="commonButton m-footer-confirm">确定</view>
+    <view
+      bindtap="closeAddOrEditDialog" 
+      class="commonButton m-footer-cancel">取消
+    </view>
+    <view
+      bindtap="saveAddOrEditDialog"
+      class="commonButton m-footer-confirm">确定
+    </view>
   </view>
 </half-screen-dialog>
