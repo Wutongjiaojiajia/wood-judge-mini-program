@@ -111,7 +111,7 @@ Page({
           thicknessList:thicknessList, //厚度列表
           panelPrice:originData
         })
-        this.changeWoodStandardValue();
+        this.changeWoodStandardValue(false);
       }else{
         this.setData({
           originWoodList:[],  //价格数据
@@ -133,8 +133,8 @@ Page({
       this.showTopTips('error','查询失败，请联系管理员');
     })
   },
-  // 木材规格-厚度标准选中变化
-  changeWoodStandardValue(){
+  // 木材规格-厚度标准选中变化 true-改变时 false-初始化赋值
+  changeWoodStandardValue(type){
     let tempArr = [];
     let standardValue = this.data.standardList[this.data.standardIndex].value;
     switch (standardValue) {
@@ -149,15 +149,50 @@ Page({
         break;
     }
     this.setData({
-      thicknessList:tempArr
+      thicknessList:tempArr //过滤厚度选择列表
     })
+    if(type){
+      this.setData({
+        thicknessStatistics:[]  //清空厚度统计行
+      })
+    }else{
+      this.getThicknessStatisticsFromStorage();
+    }
+    // 对比厚度统计列 找到不属于该标准的厚度
+  },
+  // 获取记录信息并赋值
+  getThicknessStatisticsFromStorage(){
+    let info = wx.getStorageSync('personalRecordInfo');
+    if(info){
+      let parseInfo = JSON.parse(info);
+      let recordArr = []; //获取thickness的value
+      this.data.thicknessList.forEach(item => {
+        recordArr.push(item.value);
+      });
+      let intersectArr = recordArr.filter(item=>parseInfo.thicknessStatistics.includes(item));  //交集
+      let removeRepeatArr = Array.from(new Set(intersectArr));
+      let completeArr = [];
+      removeRepeatArr.forEach(item => {
+        let obj = {
+          thickness:item,
+          resultTitle:`${item}mm`,
+          total:0,
+          percent:'',
+          percentDisplay:''
+        };
+        completeArr.push(obj);
+      });
+      this.setData({
+        thicknessStatistics:completeArr
+      })
+    }
   },
   // 改变厚度标准下标值
   changeStandardSelect(e){
     this.setData({
       standardIndex:Number(e.detail.value)
     })
-    this.changeWoodStandardValue();
+    this.changeWoodStandardValue(true);
   },
   // 改变木材等级下标值
   changeLevelSelect(e){
@@ -596,10 +631,45 @@ Page({
       topTipsMsg:msg,
     })    
   },
+  // 存储信息记录页面的信息
+  savePageInfo(){
+    let thicknessArr = [];
+    this.data.thicknessStatistics.forEach((item) => {
+      if(!thicknessArr.includes(item.thickness)){
+        thicknessArr.push(item.thickness);
+      }
+    });
+    let obj = {
+      standardIndex:this.data.standardIndex,  //厚度标准下标
+      levelIndex:this.data.levelIndex,  //等级标准下标
+      fixedCost:this.data.fixedCost,  //固定成本
+      shavingPrice:this.data.shavingPrice,//刨花
+      thicknessStatisticsState:this.data.thicknessStatisticsState,  //木材厚度统计状态
+      thicknessStatistics:thicknessArr,  //木材厚度统计列
+      qualityStatisticsState:this.data.qualityStatisticsState,  //木材质量统计状态
+    };
+    wx.setStorageSync('personalRecordInfo', JSON.stringify(obj));
+  },
+  // 获取记录信息并赋值（除厚度统计以外）
+  getPageInfoExceptThicknessFromStorage(){
+    let info = wx.getStorageSync('personalRecordInfo');
+    if(info){
+      let parseInfo = JSON.parse(info);
+      this.setData({
+        standardIndex:parseInfo.standardIndex?parseInfo.standardIndex:0,  //厚度标准下标
+        levelIndex:parseInfo.levelIndex?parseInfo.levelIndex:0, //木材等级下标
+        fixedCost:parseInfo.fixedCost?parseInfo.fixedCost:'700', //固定成本
+        shavingPrice:parseInfo.shavingPrice?parseInfo.shavingPrice:'130', //刨花价钱
+        thicknessStatisticsState:parseInfo.thicknessStatisticsState?parseInfo.thicknessStatisticsState:0, //厚度统计状态
+        qualityStatisticsState:parseInfo.qualityStatisticsState?parseInfo.qualityStatisticsState:0, //质量统计状态
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getPageInfoExceptThicknessFromStorage();
     this.queryPriceMaintainInfo();
   },
 
@@ -621,7 +691,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.savePageInfo();
   },
 
   /**
@@ -631,19 +701,6 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享
