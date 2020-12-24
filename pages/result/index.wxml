@@ -3,6 +3,7 @@
   <view slot="content">计算结果</view>
   <view slot="backText">
     <icon
+      bindtap="backToCalc"
       class="iconfont icon-back">
     </icon>
   </view>
@@ -26,31 +27,33 @@
     <mp-cell
       wx:for="{{qualityStatistics}}"
       wx:key="index"
-      title="{{item.title}}"
+      title="{{item.resultTitle}}"
       ext-class="cellStyle">
       <input 
         class="weui-input"
         type="number"
         disabled="{{true}}"
         placeholder="质量百分比"
-        model:value="{{item.percentDisplay}}"/>
+        model:value="{{item.percentDisplay}}%"/>
     </mp-cell>
   </mp-cells>
   <mp-cells title="厚度统计">
     <mp-cell
       wx:for="{{thicknessStatistics}}"
       wx:key="index"
-      title="{{item.title}}"
+      title="{{item.resultTitle}}"
       ext-class="cellStyle">
       <input 
         class="weui-input"
         type="number"
         disabled="{{true}}"
         placeholder="厚度百分比"
-        model:value="{{item.percentDisplay}}"/>
+        model:value="{{item.percentDisplay}}%"/>
     </mp-cell>
   </mp-cells>
-  <mp-cells title="价格分析">
+  <mp-cells
+    ext-class="m-module-analysis" 
+    title="价格分析">
     <mp-cell
       title="成本(元/m³)"
       ext-class="cellStyle">

@@ -10,28 +10,34 @@ Page({
     // 计算结果
     percentOfOutput:'', //出材率
     // 质量统计
-    qualityStatistics:[
-      {title:'A(%)',percentDisplay:''},
-      {title:'B(%)',percentDisplay:''},
-      {title:'C(%)',percentDisplay:''},
-    ],
+    qualityStatistics:[],
     // 厚度统计
-    thicknessStatistics:[
-      {title:'16mm',percentDisplay:''},
-      {title:'17mm',percentDisplay:''},
-      {title:'18mm',percentDisplay:''},
-    ],
+    thicknessStatistics:[],
 
     productCost:'', //每立方米木材成本
     productPrice:'',  //每立方米木材出厂价
     profit:'',  //利润
+  },
+  backToCalc(){
+    wx.switchTab({
+      url: '/pages/calc/index'
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let obj = JSON.parse(options.result);
+    let { percentOfOutput,qualityStatistics,thicknessStatistics,productCost,productPrice,profit } = obj;
+    this.setData({
+      percentOfOutput,  //出材率
+      qualityStatistics,  //质量统计
+      thicknessStatistics,  //厚度统计
+      productCost,  //成本
+      productPrice, //出厂价
+      profit  //利润
+    })
   },
 
   /**
@@ -59,20 +65,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

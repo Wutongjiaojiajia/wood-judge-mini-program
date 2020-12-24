@@ -36,3 +36,6 @@ page {
 .m-result-main .cellStyle .weui-cell__hd {
   width: 250rpx;
 }
+.m-result-main .m-module-analysis {
+  margin-bottom: 40rpx;
+}

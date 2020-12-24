@@ -225,10 +225,6 @@ Page({
       [resultTitle]:this.data.thicknessList[Number(value)].text
     })
   },
-  // 删除木材厚度统计行
-  deleteWoodThicknessRow(){
-
-  },
   // 关闭操作弹框方法
   closeConfirmDialog(e){
     let buttonIndex = e.detail.index; //弹框按钮下标
@@ -359,7 +355,7 @@ Page({
       case !utils.validateCorrectMoney(Number(this.data.woodCost)):
         msg = "请输入正确的木材成本";
         break;
-      case this.fixedCost === '':
+      case this.data.fixedCost === '':
         msg = "请输入固定成本";
         break;
       case !utils.validateCorrectMoney(Number(this.data.fixedCost)):
@@ -379,6 +375,7 @@ Page({
       this.showTopTips('warn',msg);
       return;
     }
+    // 厚度统计
     switch (this.data.thicknessStatisticsState) {
       // 数量统计
       case 0:
@@ -466,10 +463,21 @@ Page({
     this.calculateProductCost();  //计算成本
     this.calculateProductPrice(); //计算出厂价
     this.calculateProfit(); //计算利润
+    let obj = {
+      percentOfOutput:this.data.percentOfOutput,  //出材率
+      qualityStatistics:this.data.qualityStatistics,  //质量统计
+      thicknessStatistics:this.data.thicknessStatistics,  //厚度统计
+      productCost:this.data.productCost,  //成本
+      productPrice:this.data.productPrice,  //出厂价
+      profit:this.data.profit
+    }
+    wx.navigateTo({
+      url: `/pages/result/index?result=${JSON.stringify(obj)}`,
+    })
   },
   /** 计算结果 */
   // 计算厚度或质量百分比
-  calculatePercentOfThicknessOrQuality(arr){
+  calculatePercentOfThicknessOrQuality(type){
     // type 0-厚度 1-质量
     let statisticsTotal = 0;
     switch (type) {
@@ -559,23 +567,23 @@ Page({
     this.data.thicknessStatistics.forEach((item) => {
       let panel = this.data.panelPrice.filter(pItem=>pItem.thickness === item.thickness);
       let perPanelPrice = panel[0];
-      let APrice = Number(perPanelPrice.A) * Number(this.qualityStatistics[0].percent);
-      let BPrice = Number(perPanelPrice.B) * Number(this.qualityStatistics[1].percent);
-      let CPrice = Number(perPanelPrice.C) * Number(this.qualityStatistics[2].percent);
-      thicknessPerPrice[item.thickness] = APrice + BPrice + CPrice;
+      let APrice = Number(perPanelPrice.A) * Number(this.data.qualityStatistics[0].percent);
+      let BPrice = Number(perPanelPrice.B) * Number(this.data.qualityStatistics[1].percent);
+      let CPrice = Number(perPanelPrice.C) * Number(this.data.qualityStatistics[2].percent);
+      thicknessPerPrice[item.thickness] = (APrice + BPrice + CPrice)*Number(item.percent);
     });
     let totalPrice = 0;
     for(let key in thicknessPerPrice){
       totalPrice += Number(thicknessPerPrice[key]);
     }
-    let productPrice = (totalPrice + Number(this.shavingPrice)).toFixed(2);
+    let productPrice = (totalPrice + Number(this.data.shavingPrice)).toFixed(2);
     this.setData({
       productPrice
     })
   },
   // 计算利润
   calculateProfit(){
-    let profit = (Number(this.productPrice) - Number(this.productCost)).toFixed(2);
+    let profit = (Number(this.data.productPrice) - Number(this.data.productCost)).toFixed(2);
     this.setData({
       profit
     })
