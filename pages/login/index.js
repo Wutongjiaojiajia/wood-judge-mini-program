@@ -73,7 +73,8 @@ Page({
           let parseUserInfo = JSON.parse(userInfo);
           let pendUserObj = {
             openid,
-            nickName:parseUserInfo.nickName
+            nickName:parseUserInfo.nickName,
+            isValidate:0
           };
           this.addUserToPendCheck(pendUserObj);
         }
