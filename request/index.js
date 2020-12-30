@@ -31,9 +31,23 @@ export default {
   }),
   //微信登陆
   wxLoginSystem:(data)=>req({
-    baseUrl:'test',
+    baseUrl:'wood',
     method:'get',
     url:'external/wxLogin',
+    data
+  }),
+  // 添加用户到待审核用户表
+  addUserToPendCheck:(data)=>req({
+    baseUrl:'wood',
+    method:'post',
+    url:'user/addUserToPendCheck',
+    data
+  }),
+  // 校验用户是否存在系统用户表中
+  validateUserIsLegal:(data)=>req({
+    baseUrl:'wood',
+    method:'get',
+    url:'user/validateUserIsLegal',
     data
   })
 }

@@ -27,9 +27,7 @@ Page({
           if(code === 0){
             wx.setStorageSync('openid', info.openid);
             wx.setStorageSync('session_key', info.session_key);
-            wx.switchTab({
-              url: '/pages/calc/index',
-            })
+            this.validateUserIsLegal();
           }else{
             wx.showModal({
               showCancel:false,
@@ -53,14 +51,66 @@ Page({
     wx.setStorageSync('userInfo', JSON.stringify(e.detail.userInfo));
     this.loginSystem();
   },
+  // 校验用户是否存在于系统用户表，
+  // 若不存在则添加到审核表中
+  validateUserIsLegal(){
+    wx.showLoading({
+      title: '校验中...',
+    })
+    let openid = wx.getStorageSync('openid');
+    let userInfo = wx.getStorageSync('userInfo');
+    if(openid && userInfo){
+      req.validateUserIsLegal({openid})
+      .then((res)=>{
+        let { code } = res.data;
+        // 用户验证成功
+        if(code === 1){
+          wx.hideLoading();
+          wx.switchTab({
+            url: '/pages/calc/index',
+          })
+        }else{
+          let parseUserInfo = JSON.parse(userInfo);
+          let pendUserObj = {
+            openid,
+            nickName:parseUserInfo.nickName
+          };
+          this.addUserToPendCheck(pendUserObj);
+        }
+      })
+      .catch(()=>{
+        wx.hideLoading();
+        wx.showModal({
+          showCancel:false,
+          content: '网络连接超时，请稍后再试',
+        })
+      })
+    }
+  },
+  // 添加用户到待审核表中
+  addUserToPendCheck(userObj){
+    req.addUserToPendCheck(userObj)
+    .then((res)=>{
+      wx.hideLoading();
+      wx.showModal({
+        showCancel:false,
+        content:'暂无权限使用本系统，请联系管理员',
+      })
+    })
+    .catch(()=>{
+      wx.hideLoading();
+      wx.showModal({
+        showCancel:false,
+        content:'网络连接超时，请稍后再试',
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     if(wx.getStorageSync('userInfo') && wx.getStorageSync('openid')){
-      wx.switchTab({
-        url: '/pages/calc/index',
-      })
+      this.validateUserIsLegal();
     }
   },
 
