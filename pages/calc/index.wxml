@@ -4,24 +4,6 @@
   msg="{{topTipsMsg}}"
   type="{{topTipsType}}">
 </toptips>
-<!-- 警示弹框 -->
-<mp-dialog 
-  show="{{alertDialogShow}}"
-  bindbuttontap="closeAlertDialog"
-  mask="{{true}}"
-  mask-closable="{{false}}"
-  buttons="{{alertDialogButton}}">
-  <view>{{alertDialogContent}}</view>
-</mp-dialog>
-<!-- 确认操作弹框 -->
-<mp-dialog
-  show="{{confirmDialogShow}}"
-  bindbuttontap="closeConfirmDialog"
-  mask="{{true}}"
-  mask-closable="{{false}}"
-  buttons="{{confirmDialogButton}}">
-  <view>{{confirmDialogContent}}</view>
-</mp-dialog>
 <cu-custom>
   <view slot="content">木材计算</view>
 </cu-custom>

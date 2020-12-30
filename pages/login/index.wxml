@@ -1,0 +1,15 @@
+<cu-custom
+  isBack="{{true}}">
+  <view slot="content">系统登录</view>
+</cu-custom>
+<view 
+  class="m-view-login"
+  style="top:{{CustomBar}}px">
+  <button
+    class="m-login-button"
+    open-type="getUserInfo" 
+    bindgetuserinfo="getUserInfo"
+    bindtap="loginSystem">
+    <view>微信登录</view> 
+  </button>
+</view>

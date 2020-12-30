@@ -13,19 +13,6 @@ Page({
     topTipsMsg:"",
     topTipsType:"", //warn-警告 success-成功 error-错误
     topTipsShow:false,
-    /** 警示弹框 */
-    alertDialogShow:false, //是否显示弹框
-    alertDialogContent:'', //弹框文字信息
-    alertDialogButton:[
-      {text:'确定'}
-    ],
-    /** 确认操作弹框 */
-    confirmDialogShow:false,  //是否显示弹框
-    confirmDialogContent:'',  //弹框文字信息
-    confirmDialogButton:[
-      {text:'确定'},
-      {text:'取消'}
-    ],
     /** 木材规格开始 */
     standardList:[
       {text:'4/8',value:0.5},
@@ -62,7 +49,6 @@ Page({
     thicknessList:[
       // {text:'16mm',value:16}
     ],  //过滤厚度选择列表
-    thicknessStatisticsIndex:null,  //操作下标
     /** 厚度统计结束 */ 
 
     /** 质量统计开始 */
@@ -220,9 +206,9 @@ Page({
   // 点击加号添加木材厚度统计行
   addWoodThicknessRow(){
     if(this.data.thicknessStatistics.length+1>this.data.thicknessList.length){
-      this.setData({
-        alertDialogShow:true,
-        alertDialogContent:`当前不能继续新增行,因为厚度统计行大于厚度记录行`
+      wx.showModal({
+        content: '当前不能继续新增行，因为厚度统计行大于厚度记录行',
+        showCancel:false
       })
       return;
     }
@@ -260,45 +246,25 @@ Page({
       [resultTitle]:this.data.thicknessList[Number(value)].text
     })
   },
-  // 关闭操作弹框方法
-  closeConfirmDialog(e){
-    let buttonIndex = e.detail.index; //弹框按钮下标
-    switch (buttonIndex) {
-      // 确定
-      case 0:
-        this.data.thicknessStatistics.splice(this.data.thicknessStatisticsIndex,1);
-        this.setData({
-          thicknessStatistics:this.data.thicknessStatistics
-        })
-        break;
-      // 取消
-      case 1:
-
-        break;
-    }
-    this.setData({
-      confirmDialogShow:false,
-      confirmDialogContent:'',
-      thicknessStatisticsIndex:null
-    })
-  },
-  // 关闭警示弹框方法
-  closeAlertDialog(){
-    this.setData({
-      alertDialogShow:false,
-      alertDialogContent:''      
-    })
-  },
   // 点击滑动按钮
   thicknessStatisticsSlideButtonTap(e){
     let slideButtonIndex = e.detail.index;  //点击侧滑按钮下标
     let thicknessStatisticsIndex = e.target.dataset.index;
     switch (slideButtonIndex) {
       case 0:
-        this.setData({
-          confirmDialogShow:true,
-          confirmDialogContent:'确定删除吗？',
-          thicknessStatisticsIndex:thicknessStatisticsIndex
+        wx.showModal({
+          content: '确认删除吗？',
+          success:(res)=>{
+            // 用户点击确定/取消
+            if(res.confirm){
+              this.data.thicknessStatistics.splice(thicknessStatisticsIndex,1);
+              this.setData({
+                thicknessStatistics:this.data.thicknessStatistics,
+              })
+            }else if(res.cancel){
+
+            }
+          }
         })
         break;
     }
@@ -669,6 +635,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("apppp",app.globalData.userInfo);
     this.getPageInfoExceptThicknessFromStorage();
     this.queryPriceMaintainInfo();
   },

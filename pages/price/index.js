@@ -18,19 +18,11 @@ Page({
     slideButtons:[
       {text:'删除',type:'warn'}
     ],
-    selectRowData:null,  //选中行下标
     totalPage:0,  //总页数
     pageNumber:0, //第x页
     pageSize:100,  //每次查询数量
     finished:true,  //是否已经结束调用接口
     pullDownLoading:false, //下拉刷新状态
-    /** 确认操作弹框 */
-    confirmDialogShow:false,  //是否显示弹框
-    confirmDialogContent:'',  //弹框文字信息
-    confirmDialogButton:[
-      {text:'确定'},
-      {text:'取消'}
-    ],
     /** 新增&编辑弹框 */
     popupShow:false,
     popupTitle:"新增板价",
@@ -149,74 +141,55 @@ Page({
   },
   // 选中需要删除的行
   selectDeleteRow(e){
-    console.log("eeeee",e);
     let { item } = e.target.dataset;
-    this.setData({
-      selectRowData:item,
-      confirmDialogShow:true,
-      confirmDialogContent:'确认删除当前行吗？'
-    })
-  },
-  // 关闭操作弹框方法
-  async closeConfirmDialog(e){
-    let buttonIndex = e.detail.index; //弹框按钮下标
-    switch (buttonIndex) {
-      // 确定
-      case 0:
-        try {
-          let msg = await this.deleteRowData();
-          this.setData({
-            topTipsMsg:msg,
-            topTipsType:'success',
-            topTipsShow:true,
-            selectRowData:null
-          })
-          this.refreshList();
-        } catch (error) {
-          this.setData({
-            topTipsMsg:msg,
-            topTipsType:'error',
-            topTipsShow:true,
-            selectRowData:null
-          })
-        }
-        break;
-      // 取消
-      case 1:
+    wx.showModal({
+      content: '确认删除当前行吗？',
+      success: (res)=>{
+        //用户点击确认/取消
+        if(res.confirm){
+          this.deleteRowData(item);
+        }else if(res.cancel){
 
-        break;
-    }
-    this.setData({
-      confirmDialogShow:false,
-      confirmDialogContent:'',
-      thicknessStatisticsIndex:null
+        }
+      }
     })
   },
   // 删除表格行数据
-  deleteRowData(){
-    return new Promise((resolve,reject)=>{
-      let obj = {
-        thickness:this.data.selectRowData.thickness
-      };
-      wx.showLoading({
-        title: '删除中...',
-        mask: true
-      });
-      req.deletePriceMaintainInfo(obj)
-      .then((res)=>{
-        wx.hideLoading();
-        let { code,info } = res.data;
-        if(code === 1){
-          resolve("删除成功");
-        }else{
-          reject(info);
-        }
-      })
-      .catch(()=>{
-        wx.hideLoading();
-        reject(err.response.data.info);
-      })
+  deleteRowData(selectRowData){
+    let obj = {
+      thickness:selectRowData.thickness
+    };
+    wx.showLoading({
+      title: '删除中...',
+      mask: true
+    });
+    req.deletePriceMaintainInfo(obj)
+    .then((res)=>{
+      wx.hideLoading();
+      let { code,info } = res.data;
+      if(code === 1){
+        this.setData({
+          topTipsMsg:"删除成功",
+          topTipsType:'success',
+          topTipsShow:true,
+        })
+        this.refreshList();
+      }else{
+        this.setData({
+          topTipsMsg:info,
+          topTipsType:'error',
+          topTipsShow:true,
+        })
+      }
     })
+    .catch(()=>{
+        wx.hideLoading();
+        this.setData({
+          topTipsMsg:err.response.data.info,
+          topTipsType:'error',
+          topTipsShow:true,
+        })
+      })
   },
   // 打开新增/编辑弹框
   openAddOrEditDialog(e){

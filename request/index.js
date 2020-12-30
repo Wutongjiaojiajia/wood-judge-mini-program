@@ -28,5 +28,12 @@ export default {
     method:'post',
     url:'priceMaintain/deleteData',
     data
+  }),
+  //微信登陆
+  wxLoginSystem:(data)=>req({
+    baseUrl:'test',
+    method:'get',
+    url:'external/wxLogin',
+    data
   })
 }

@@ -4,15 +4,6 @@
   msg="{{topTipsMsg}}"
   type="{{topTipsType}}">
 </toptips>
-<!-- 确认操作弹框 -->
-<mp-dialog
-  show="{{confirmDialogShow}}"
-  bindbuttontap="closeConfirmDialog"
-  mask="{{true}}"
-  mask-closable="{{false}}"
-  buttons="{{confirmDialogButton}}">
-  <view>{{confirmDialogContent}}</view>
-</mp-dialog>
 <cu-custom
   isBack="{{true}}">
   <view slot="content">板价维护</view>

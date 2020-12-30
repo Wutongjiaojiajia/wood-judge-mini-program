@@ -1,0 +1,40 @@
+page {
+  background: #FAFAFA;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+.cu-custom {
+  background-color: #78aa7b;
+}
+.cu-custom .cu-bar .content {
+  color: #000;
+  font-size: 32rpx;
+}
+.m-view-login {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+.m-view-login .m-login-button {
+  position: absolute;
+  background: #78aa7b;
+  color: #F1F1F1;
+  padding: 10rpx 150rpx;
+  font-size: 32rpx;
+  font-weight: bolder;
+  border-radius: 10rpx;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px 0 rgba(200, 200, 200, 0.8);
+}
+.m-view-login .m-login-button view {
+  width: 128rpx;
+}
+.m-view-login .m-login-button:active {
+  opacity: 0.7;
+}
