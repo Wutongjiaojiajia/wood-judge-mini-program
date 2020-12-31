@@ -1,4 +1,4 @@
-import req from './request/index';
+import pubSub from './utils/pubSub.js';
 App({
   globalData:{
     StatusBar:'', 
@@ -6,6 +6,7 @@ App({
     CustomBar:'',
     userInfo:null,
   },
+  pubSub:new pubSub(),
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */

@@ -4,7 +4,6 @@
     "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
     "stepper": "/components/stepper/stepper",
     "mp-slideview":"/miniprogram_npm/weui-miniprogram/slideview/slideview",
-    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog",
     "cu-custom":"/components/cu-custom/cu-custom",
     "toptips":"/components/toptips/toptips"
   },

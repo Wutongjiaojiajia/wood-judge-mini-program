@@ -174,6 +174,7 @@ Page({
           topTipsShow:true,
         })
         this.refreshList();
+        this.priceChangeToRequery();
       }else{
         this.setData({
           topTipsMsg:info,
@@ -296,6 +297,7 @@ Page({
         })
         this.closeAddOrEditDialog();
         this.refreshList();
+        this.priceChangeToRequery();
       }else{
         this.setData({
           topTipsMsg:info,
@@ -337,6 +339,7 @@ Page({
         })
         this.closeAddOrEditDialog();
         this.refreshList();
+        this.priceChangeToRequery();
       }else{
         this.setData({
           topTipsMsg:info,
@@ -353,6 +356,10 @@ Page({
         topTipsShow:true,
       })
     })
+  },
+  // 板价更新重新查询列表
+  priceChangeToRequery(){
+    app.pubSub.emit('priceChangeToRequery');
   },
   /**
    * 生命周期函数--监听页面加载

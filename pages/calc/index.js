@@ -250,6 +250,7 @@ Page({
   thicknessStatisticsSlideButtonTap(e){
     let slideButtonIndex = e.detail.index;  //点击侧滑按钮下标
     let thicknessStatisticsIndex = e.target.dataset.index;
+    // console.log("thicknessStatisticsIndex",thicknessStatisticsIndex);
     switch (slideButtonIndex) {
       case 0:
         wx.showModal({
@@ -257,9 +258,10 @@ Page({
           success:(res)=>{
             // 用户点击确定/取消
             if(res.confirm){
-              this.data.thicknessStatistics.splice(thicknessStatisticsIndex,1);
+              let tempArr = JSON.parse(JSON.stringify(this.data.thicknessStatistics));
+              tempArr.splice(thicknessStatisticsIndex,1);
               this.setData({
-                thicknessStatistics:this.data.thicknessStatistics,
+                thicknessStatistics:tempArr
               })
             }else if(res.cancel){
 
@@ -635,9 +637,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("apppp",app.globalData.userInfo);
     this.getPageInfoExceptThicknessFromStorage();
     this.queryPriceMaintainInfo();
+    app.pubSub.on('priceChangeToRequery', () => {
+      this.queryPriceMaintainInfo();
+    });
   },
 
   /**
@@ -651,7 +655,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

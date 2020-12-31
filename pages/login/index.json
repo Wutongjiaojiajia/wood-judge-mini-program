@@ -1,7 +1,6 @@
 {
   "usingComponents": {
-    "cu-custom":"/components/cu-custom/cu-custom",
-    "mp-dialog":"/miniprogram_npm/weui-miniprogram/dialog/dialog"
+    "cu-custom":"/components/cu-custom/cu-custom"
   },
   "navigationBarTitleText": "板价维护",
   "navigationStyle":"custom"

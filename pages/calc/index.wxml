@@ -120,8 +120,9 @@
         </view>
         <view class="weui-cell__bd weui-cell__bd_in-select-before cellContent">
           <stepper
-          bindvalueChange="thicknessPieceValueChange" 
-          data-index="{{index}}">
+            num="{{item.total}}"
+            bindvalueChange="thicknessPieceValueChange" 
+            data-index="{{index}}">
           </stepper>
         </view>
       </view>
@@ -179,6 +180,7 @@
       <view class="cellTitle">{{item.recordTitle}}</view>
       <view class="cellContent">
         <stepper
+          num="{{item.total}}"
           bindvalueChange="qualityPieceValueChange" 
           data-index="{{index}}">
         </stepper>

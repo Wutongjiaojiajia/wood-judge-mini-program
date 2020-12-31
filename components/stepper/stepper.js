@@ -4,13 +4,16 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    num:{
+      type:Number,
+      value:0
+    }
   },
   /**
    * 组件的初始数据
    */
   data: {
-    num:0, // 输入框值默认是0
+    // num:0, // 输入框值默认是0
     disabledStatus:true,  //按钮禁用状态
     plusFocusStatus:false,  //加号聚焦状态
     minusFocusStatus:false, //减号聚焦状态
