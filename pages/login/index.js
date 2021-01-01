@@ -29,4 +29,16 @@ Page({
   onReady: function () {
 
   },
+  //分享
+  onShareAppMessage(){
+    let shareObj = {
+      title:'系统登录',
+      path:'/pages/login/index',
+      imageUrl:'/icons/pro_share.png',
+      success:(res)=>{
+        
+      }
+    }
+    return shareObj;
+  }
 })

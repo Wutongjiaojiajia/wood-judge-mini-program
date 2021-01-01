@@ -399,6 +399,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    let shareObj = {
+      title:'价格维护',
+      path:'/pages/price/index',
+      imageUrl:'/icons/pro_share.png',
+      success:(res)=>{
+        
+      }
+    }
+    return shareObj;
   }
 })

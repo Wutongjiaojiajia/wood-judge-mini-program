@@ -675,7 +675,15 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage() {
+    let shareObj = {
+      title:'木材计算',
+      path:'/pages/calc/index',
+      imageUrl:'/icons/pro_share.png',
+      success:(res)=>{
+        
+      }
+    }
+    return shareObj;
   }
 })

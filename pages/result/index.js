@@ -78,7 +78,7 @@ Page({
     let shareObj = {
       title:'计算结果',
       path:this.data.fullPath,
-      imageUrl:'',
+      imageUrl:'/icons/pro_share.png',
       success:(res)=>{
         
       }
