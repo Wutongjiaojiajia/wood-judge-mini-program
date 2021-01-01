@@ -250,7 +250,6 @@ Page({
   thicknessStatisticsSlideButtonTap(e){
     let slideButtonIndex = e.detail.index;  //点击侧滑按钮下标
     let thicknessStatisticsIndex = e.target.dataset.index;
-    // console.log("thicknessStatisticsIndex",thicknessStatisticsIndex);
     switch (slideButtonIndex) {
       case 0:
         wx.showModal({

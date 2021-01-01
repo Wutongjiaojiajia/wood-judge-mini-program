@@ -68,7 +68,6 @@ Page({
         });
         let totalPage = Math.floor(total/this.data.pageSize);
         let actualTotalPage = total%this.data.pageSize === 0?totalPage:totalPage+1; //实际总页数
-        console.log("actualTotalPage",actualTotalPage);
         this.setData({
           formData:originData,
           totalPage:actualTotalPage
@@ -399,7 +398,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage() {
 
   }
 })

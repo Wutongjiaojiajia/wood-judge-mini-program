@@ -48,6 +48,7 @@ page {
   bottom: 0;
   top: 106rpx;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .m-priceMaintain-grid .m-grid-content .weui-slideview {
   height: 88rpx !important;

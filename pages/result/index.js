@@ -17,6 +17,8 @@ Page({
     productCost:'', //每立方米木材成本
     productPrice:'',  //每立方米木材出厂价
     profit:'',  //利润
+
+    fullPath:'',  //完整路径
   },
   backToCalc(){
     wx.switchTab({
@@ -31,6 +33,7 @@ Page({
     let obj = JSON.parse(options.result);
     let { percentOfOutput,qualityStatistics,thicknessStatistics,productCost,productPrice,profit } = obj;
     this.setData({
+      fullPath:`/pages/result/index?result=${options.result}`, //完整路径
       percentOfOutput,  //出材率
       qualityStatistics,  //质量统计
       thicknessStatistics,  //厚度统计
@@ -50,8 +53,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow(options) {
+    
   },
 
   /**
@@ -71,7 +74,15 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage(res) {
+    let shareObj = {
+      title:'计算结果',
+      path:this.data.fullPath,
+      imageUrl:'',
+      success:(res)=>{
+        
+      }
+    }
+    return shareObj;
   }
 })
