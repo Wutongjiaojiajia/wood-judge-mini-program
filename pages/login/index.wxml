@@ -8,8 +8,7 @@
   <button
     class="m-login-button"
     open-type="getUserInfo" 
-    bindgetuserinfo="getUserInfo"
-    bindtap="loginSystem">
+    bindgetuserinfo="getUserInfo">
     <view>微信登录</view> 
   </button>
 </view>

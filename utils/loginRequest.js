@@ -82,7 +82,7 @@ const addUserToPendCheck = (userObj)=>{
       showCancel:false,
       content:'暂无权限使用本系统，请联系管理员',
     })
-    wx.switchTab({
+    wx.reLaunch({
       url: '/pages/login/index',
     })
   })
@@ -92,7 +92,7 @@ const addUserToPendCheck = (userObj)=>{
       showCancel:false,
       content:'网络连接超时，请稍后再试',
     })
-    wx.switchTab({
+    wx.reLaunch({
       url: '/pages/login/index',
     })
   })
