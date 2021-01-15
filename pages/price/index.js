@@ -1,5 +1,5 @@
-// pages/price/index.js
 import req from '../../request/index.js';
+import routeInfo from '../../utils/routeInfo.js';
 import utils from '../../utils/util.js';
 const app = getApp();
 Page({
@@ -366,46 +366,15 @@ Page({
   onLoad: function (options) {
     this.refreshList();
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
     let shareObj = {
       title:'价格维护',
-      path:'/pages/price/index',
-      imageUrl:'/icons/pro_share.png',
-      success:(res)=>{
-        
-      }
+      path:`/${routeInfo.pricePage}`,
+      imageUrl:'/icons/price_share.png',
+      success:(res)=>{}
     }
     return shareObj;
   }

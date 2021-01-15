@@ -1,5 +1,8 @@
 import pubSub from './utils/pubSub.js';
 import loginSystem from './utils/loginRequest';
+import utils from './utils/util.js';
+import storageInfo from './utils/storageInfo.js';
+import routeInfo from './utils/routeInfo.js';
 App({
   globalData:{
     StatusBar:'', 
@@ -12,18 +15,23 @@ App({
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch(options) {
-    console.log("options",options);
     this.getSystemDeviceInfo();
+    wx.setStorageSync(storageInfo.loginStatus, true);
+    this.analysisUserEnterPath(options);
+  },
+
+  // 解析用户进入路径
+  analysisUserEnterPath(options){
     let { path } = options;
     let fullPath = "";
     switch (path) {
       // login页
-      case "pages/login/index":
-        fullPath = "pages/calc/index";
+      case routeInfo.loginPage:
+        fullPath = routeInfo.calcPage;
         break;
       // result页
-      case "pages/result/index":
-        fullPath = `pages/result/index?result=${options.query.result}`;
+      case routeInfo.resultPage:
+        fullPath = `${routeInfo.resultPage}?result=${options.query.result}`;
         break;
       default:
         fullPath = path;
@@ -41,7 +49,7 @@ App({
           wx.getUserInfo({
             success: res => {
               this.globalData.userInfo = res.userInfo;
-              wx.setStorageSync('userInfo', JSON.stringify(res.userInfo));
+              wx.setStorageSync(storageInfo.userInfo, JSON.stringify(res.userInfo));
               loginSystem(route);
             }
           })
@@ -64,7 +72,12 @@ App({
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
   onShow(options) {
-
+    console.log("onShowOptions",options);
+    let loginStatus = wx.getStorageSync(storageInfo.loginStatus);
+    let { path } = options;
+    if(!loginStatus && path !== routeInfo.loginPage){
+      utils.reLaunchLoginPage("请先登录再使用本系统");
+    }
   },
 
   /**

@@ -1,6 +1,7 @@
-// pages/calc/index.js
 import req from '../../request/index.js';
 import utils from '../../utils/util.js';
+import storageInfo from '../../utils/storageInfo.js';
+import routeInfo from '../../utils/routeInfo.js';
 const app = getApp();
 Page({
   /**
@@ -148,7 +149,7 @@ Page({
   },
   // 获取记录信息并赋值
   getThicknessStatisticsFromStorage(){
-    let info = wx.getStorageSync('personalRecordInfo');
+    let info = wx.getStorageSync(storageInfo.personalRecordInfo);
     if(info){
       let parseInfo = JSON.parse(info);
       let recordArr = []; //获取thickness的value
@@ -474,7 +475,7 @@ Page({
       profit:this.data.profit
     }
     wx.navigateTo({
-      url: `/pages/result/index?result=${JSON.stringify(obj)}`,
+      url: `/${routeInfo.resultPage}?result=${JSON.stringify(obj)}`,
     })
   },
   /** 计算结果 */
@@ -615,11 +616,11 @@ Page({
       thicknessStatistics:thicknessArr,  //木材厚度统计列
       qualityStatisticsState:this.data.qualityStatisticsState,  //木材质量统计状态
     };
-    wx.setStorageSync('personalRecordInfo', JSON.stringify(obj));
+    wx.setStorageSync(storageInfo.personalRecordInfo, JSON.stringify(obj));
   },
   // 获取记录信息并赋值（除厚度统计以外）
   getPageInfoExceptThicknessFromStorage(){
-    let info = wx.getStorageSync('personalRecordInfo');
+    let info = wx.getStorageSync(storageInfo.personalRecordInfo);
     if(info){
       let parseInfo = JSON.parse(info);
       this.setData({
@@ -642,47 +643,21 @@ Page({
       this.queryPriceMaintainInfo();
     });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
-  },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
     this.savePageInfo();
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
     let shareObj = {
       title:'木材计算',
-      path:'/pages/calc/index',
-      imageUrl:'/icons/pro_share.png',
-      success:(res)=>{
-        
-      }
+      path:`/${routeInfo.calcPage}`,
+      imageUrl:'/icons/calc_share.png',
+      success:(res)=>{}
     }
     return shareObj;
   }

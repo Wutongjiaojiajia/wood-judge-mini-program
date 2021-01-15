@@ -1,4 +1,6 @@
 import req from '../request/index.js';
+import storageInfo from './storageInfo.js';
+import utils from './util.js';
 
 // 登陆系统
 const loginSystem = (route)=>{
@@ -11,25 +13,18 @@ const loginSystem = (route)=>{
       // 发送 res.code 到后台换取 openId, sessionKey, unionId
       req.wxLoginSystem({code:res.code})
       .then((secRes)=>{
-        wx.hideLoading();
         let { code,info } = secRes.data;
         if(code === 0){
-          wx.setStorageSync('openid', info.openid);
-          wx.setStorageSync('session_key', info.session_key);
+          wx.hideLoading();
+          wx.setStorageSync(storageInfo.openid, info.openid);
+          wx.setStorageSync(storageInfo.session_key, info.session_key);
           validateUserIsLegal(route);
         }else{
-          wx.showModal({
-            showCancel:false,
-            content:info,
-          })
+          utils.reLaunchLoginPage(info);
         }
       })
-      .catch((error)=>{
-        wx.hideLoading();
-        wx.showModal({
-          showCancel:false,
-          content:"网络连接超时，请稍后再试",
-        })
+      .catch(()=>{
+        utils.reLaunchLoginPage("网络连接超时，请稍后再试")
       })
     }
   })
@@ -40,9 +35,10 @@ const loginSystem = (route)=>{
 const validateUserIsLegal = (route)=>{
   wx.showLoading({
     title: '校验中...',
+    mask: true
   })
-  let openid = wx.getStorageSync('openid');
-  let userInfo = wx.getStorageSync('userInfo');
+  let openid = wx.getStorageSync(storageInfo.openid);
+  let userInfo = wx.getStorageSync(storageInfo.userInfo);
   if(openid && userInfo){
     req.validateUserIsLegal({openid})
     .then((res)=>{
@@ -50,6 +46,7 @@ const validateUserIsLegal = (route)=>{
       // 用户验证成功
       if(code === 1){
         wx.hideLoading();
+        wx.setStorageSync(storageInfo.loginStatus, true)
         wx.reLaunch({
           url: route,
         })
@@ -64,11 +61,7 @@ const validateUserIsLegal = (route)=>{
       }
     })
     .catch(()=>{
-      wx.hideLoading();
-      wx.showModal({
-        showCancel:false,
-        content: '网络连接超时，请稍后再试',
-      })
+      utils.reLaunchLoginPage("网络连接超时，请稍后再试");
     })
   }
 }
@@ -76,25 +69,11 @@ const validateUserIsLegal = (route)=>{
 // 添加用户到待审核表中
 const addUserToPendCheck = (userObj)=>{
   req.addUserToPendCheck(userObj)
-  .then((res)=>{
-    wx.hideLoading();
-    wx.showModal({
-      showCancel:false,
-      content:'暂无权限使用本系统，请联系管理员',
-    })
-    wx.reLaunch({
-      url: '/pages/login/index',
-    })
+  .then(()=>{
+    utils.reLaunchLoginPage("暂无权限使用本系统，请联系管理员");
   })
   .catch(()=>{
-    wx.hideLoading();
-    wx.showModal({
-      showCancel:false,
-      content:'网络连接超时，请稍后再试',
-    })
-    wx.reLaunch({
-      url: '/pages/login/index',
-    })
+    utils.reLaunchLoginPage("网络连接超时，请稍后再试");
   })
 }
 

@@ -1,6 +1,7 @@
-// pages/login/index.js
 const app = getApp();
 import loginSystem from '../../utils/loginRequest';
+import routeInfo from '../../utils/routeInfo';
+import storageInfo from '../../utils/storageInfo';
 Page({
 
   /**
@@ -12,32 +13,17 @@ Page({
   // 获取用户信息
   getUserInfo(e){
     app.globalData.userInfo = e.detail.userInfo;
-    wx.setStorageSync('userInfo', JSON.stringify(e.detail.userInfo));
+    wx.setStorageSync(storageInfo.userInfo, JSON.stringify(e.detail.userInfo));
     // 如果从登录页进入则默认计算页
-    loginSystem('/pages/calc/index');
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+    loginSystem(`/${routeInfo.calcPage}`);
   },
   //分享
   onShareAppMessage(){
     let shareObj = {
       title:'系统登录',
-      path:'/pages/login/index',
-      imageUrl:'/icons/pro_share.png',
-      success:(res)=>{
-        
-      }
+      path:`/${routeInfo.loginPage}`,  
+      imageUrl:'/icons/login_share.png',
+      success:(res)=>{}
     }
     return shareObj;
   }

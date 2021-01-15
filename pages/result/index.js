@@ -1,5 +1,5 @@
-// pages/result/index.js
 const app = getApp();
+import routeInfo from '../../utils/routeInfo';
 Page({
 
   /**
@@ -22,10 +22,9 @@ Page({
   },
   backToCalc(){
     wx.switchTab({
-      url: '/pages/calc/index'
+      url: `/${routeInfo.calcPage}`
     })
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -33,7 +32,7 @@ Page({
     let obj = JSON.parse(options.result);
     let { percentOfOutput,qualityStatistics,thicknessStatistics,productCost,productPrice,profit } = obj;
     this.setData({
-      fullPath:`/pages/result/index?result=${options.result}`, //完整路径
+      fullPath:`/${routeInfo.resultPage}?result=${options.result}`, //完整路径
       percentOfOutput,  //出材率
       qualityStatistics,  //质量统计
       thicknessStatistics,  //厚度统计
@@ -42,35 +41,6 @@ Page({
       profit  //利润
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow(options) {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   /**
    * 用户点击右上角分享
    */
@@ -78,10 +48,8 @@ Page({
     let shareObj = {
       title:'计算结果',
       path:this.data.fullPath,
-      imageUrl:'/icons/pro_share.png',
-      success:(res)=>{
-        
-      }
+      imageUrl:'/icons/result_share.png',
+      success:(res)=>{}
     }
     return shareObj;
   }
